@@ -25,7 +25,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="md:col-span-3 lg:col-span-2">
-                    <h3 className="text-[23px] font-medium mb-6">Pages</h3>
+                    <h3 className="text-[22px] font-medium mb-6">Pages</h3>
                     <ul className="space-y-4 text-[#9ca3af] text-m">
                         <li><Link href="/" className="hover:text-black transition-colors">Home</Link></li>
                         <li><Link href="/services" className="hover:text-black transition-colors">Services</Link></li>
@@ -35,7 +35,7 @@ const Footer = () => {
                 </div>
 
                 <div className="md:col-span-3 lg:col-span-3">
-                    <h3 className="text-[23px] font-medium mb-6">Socials</h3>
+                    <h3 className="text-[22px] font-medium mb-6">Socials</h3>
                     <ul className="space-y-4 text-[#9ca3af] text-m">
                         <li><a href="#" className="hover:text-black transition-colors">Instagram</a></li>
                         <li><a href="#" className="hover:text-black transition-colors">Facebook</a></li>
