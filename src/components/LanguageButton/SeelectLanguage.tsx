@@ -14,7 +14,6 @@ const LanguageSelector: React.FC = () => {
 
   return (
     <div className="relative">
-      {/* Seçilmiş bayraq */}
       <button
         onClick={() => setOpen(!open)}
         className="group w-[58px] h-[45px] px-1 rounded-full border-[1.5px] flex items-center justify-center bg-white border-[#635BFF] shadow-sm transition-all duration-300"
