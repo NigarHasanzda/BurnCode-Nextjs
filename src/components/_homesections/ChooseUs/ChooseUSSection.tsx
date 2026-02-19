@@ -27,18 +27,25 @@ const ChooseUsSection = () => {
         {/* Image Block */}
         <div className="relative w-full lg:w-[41%]">
           
-          {/* Image */}
-          <div className="rounded-[3rem] md:ml-[30px] overflow-hidden shadow-sm">
-            <Image 
-              src="/page-about-1.jpg" 
-              alt="Team working" 
-              width={700} 
-              height={600}
-              className="object-cover w-full h-[380px] sm:h-[450px] lg:h-[560px]"
-            />
-          </div>
+         {/* Image with moving white effect */}
+<div className="rounded-[3rem] md:ml-[30px] overflow-hidden shadow-sm relative group">
+  <Image 
+    src="/page-about-1.jpg" 
+    alt="Team working" 
+    width={700} 
+    height={600}
+    className="object-cover w-full h-[380px] sm:h-[450px] lg:h-[560px]"
+  />
 
-          {/* Mobile Circle - şəkilin üstünə bir az çıxır */}
+  {/* White moving effect */}
+  <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <span className="absolute w-[2px] h-full bg-white opacity-30 animate-slide1"></span>
+    <span className="absolute w-[2px] h-full bg-white opacity-20 animate-slide2"></span>
+  </div>
+</div>
+
+
+          {/* Mobile Circle */}
           <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 w-28 h-28 lg:hidden">
             <div className="absolute inset-0 animate-[spin_20s_linear_infinite]">
               <Image 
@@ -50,7 +57,7 @@ const ChooseUsSection = () => {
             </div>
           </div>
 
-          {/* Desktop Circle - əvvəlki kimi sağda */}
+          {/* Desktop Circle */}
           <div className="absolute top-1/2 -right-24 xl:-right-30 -translate-y-1/2 hidden lg:flex items-center justify-center">
             <div className="relative w-34 h-34 xl:w-39 xl:h-39 flex items-center justify-center">
               <div className="absolute inset-0 animate-[spin_20s_linear_infinite]">
