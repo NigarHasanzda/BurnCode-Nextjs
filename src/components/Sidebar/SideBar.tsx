@@ -8,11 +8,13 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LanguageSelector from "../LanguageButton/SeelectLanguage";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
   isOpen: boolean;
   links: { name: string; path: string }[];
   onClose: () => void;
+  currentLang: string;
 }
 
 const iconMap: { [key: string]: React.ReactNode } = {
@@ -23,8 +25,9 @@ const iconMap: { [key: string]: React.ReactNode } = {
   Contact: <ContactMailIcon sx={{ fontSize: 22, color: "#5D56F1" }} />,
 };
 
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, links, onClose, currentLang }) => {
+  const pathname = usePathname();
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, links, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -47,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, links, onClose }) => {
               {links.map((link) => (
                 <Link
                   key={link.name}
-                  href={link.path}
+                  href={`/${currentLang}${link.path}`}
                   className="flex items-center gap-3 text-[15px] font-semibold text-[#646464] hover:text-[#635BFF] transition-all duration-300 transform hover:translate-x-2"
                   onClick={onClose}
                 >
@@ -56,11 +59,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, links, onClose }) => {
                 </Link>
               ))}
             </nav>
-            <div className=" mx-auto mt-6  -ml-2" >
-              <LanguageSelector />
+
+            <div className="mx-auto mt-6 -ml-2">
+              <LanguageSelector currentLang={currentLang} />
             </div>
           </motion.div>
-        
         </>
       )}
     </AnimatePresence>

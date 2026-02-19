@@ -5,8 +5,9 @@ import PrimaryButton from '@/components/Button/Button';
 export default function Hero() {
   return (
     <section 
-      className="relative min-h-[80vh] w-full flex flex-col items-center justify-center py-20 px-4 overflow-hidden -mt-20 sm:mt-2 md:mt-0"
-      style={{    background: "linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(247, 248, 253, 1) 30%)"  }}  >
+      className="relative min-h-[80vh] bg-[#F7F8FD] w-full flex flex-col items-center justify-center py-20 px-4 overflow-hidden -mt-20 sm:mt-2 md:mt-0"
+    //   style={{    background: "linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(247, 248, 253, 1) 30%)"  }}  
+      >
       
       <div   className="absolute inset-0 z-0 bg-center bg-no-repeat bg-contain opacity-70 pointer-events-none"  style={{ backgroundImage: "url('/hero-bg.png')" }}/>
 
@@ -15,7 +16,7 @@ export default function Hero() {
           ABOUT OUR COMPANY
         </span>
 
-        <h1 className="text-[32px] md:text-[90px] font-[600] text-[#1A1A1A] leading-[1.2] mb-2 tracking-tight">
+        <h1 className="text-[32px] md:text-[90px] font-[600] text-[#1A1A1A] leading-[1.3] mb-2 tracking-tight">
           Bring your business into <br />
           the virtual world <br />
           <span className="text-[#5D5FEF]">with Burncode</span>

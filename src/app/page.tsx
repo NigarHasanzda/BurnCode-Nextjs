@@ -1,10 +1,5 @@
-import Hero from "@/components/_homesections/HeroSection/HeroSection";
-import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <>
-    <Hero/>
-    </>
-  );
+export default function RootPage() {
+  redirect("/az");
 }
