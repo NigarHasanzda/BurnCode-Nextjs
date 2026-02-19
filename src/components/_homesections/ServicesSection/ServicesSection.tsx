@@ -27,9 +27,8 @@ const dataArray: Service[] = [
 
 const ServicesSection = ({ lang, t = {} }: ServicesSectionProps) => {
   return (
-    <section className="bg-[#F7F8FD] py-[100px] px-0 pb-[70px]">
-      <div className="container mx-auto px-4 max-w-7xl">
-        {/* Section Header */}
+    <section className="bg-[#F7F8FD] py-[100px] px-10 pb-[70px]">
+      <div className="container mx-auto px-4 max-w-[72%]">
         <div className="flex flex-wrap items-center mb-12">
           <div className="w-full md:w-7/12">
             <div className="mb-4">
@@ -45,7 +44,7 @@ const ServicesSection = ({ lang, t = {} }: ServicesSectionProps) => {
           <div className="w-full md:w-5/12 flex md:justify-end">
             <PrimaryButton 
               text={t?.viewAllServices || "View All Services"} 
-              path={`/${lang}/services`} 
+              path={`services`} 
             />
           </div>
         </div>

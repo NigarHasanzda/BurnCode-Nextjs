@@ -37,7 +37,7 @@ const OurWork = () => {
   const t = {
     ourWorks: "our works",
     excellence: "Excellence from concept to completion",
-    allPortfolio: "all portfolio"
+    allPortfolio: "All portfolio"
   };
 
   return (
