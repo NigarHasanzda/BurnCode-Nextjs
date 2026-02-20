@@ -11,19 +11,30 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({ currentPage, lastPage, onPageChange }) => {
   const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
 
-  // Səhifə dəyişəndə yuxarıya qaytar
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
 
   return (
-    <div className="flex justify-center items-center gap-2 mt-5 select-none">
-      {/* Əvvəlki səhifə */}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "10px", // Düymələr arası ideal məsafə
+        marginTop: 40,
+        userSelect: "none",
+      }}
+    >
+      {/* Sol ox */}
       <button
         onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={btnClass(currentPage === 1)}
-        aria-label="Əvvəlki səhifə"
+        style={{
+          ...btnBaseStyle,
+          opacity: currentPage === 1 ? 0.4 : 1,
+          cursor: currentPage === 1 ? "default" : "pointer",
+        }}
       >
         ‹
       </button>
@@ -33,20 +44,27 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, lastPage, onPageCh
         <button
           key={page}
           onClick={() => page !== currentPage && onPageChange(page)}
-          className={btnClass(page === currentPage, true)}
-          disabled={page === currentPage}
-          aria-current={page === currentPage ? "page" : undefined}
+          style={{
+            ...btnBaseStyle,
+            backgroundColor: page === currentPage ? "#5D56F1" : "transparent",
+            color: page === currentPage ? "white" : "#5D56F1",
+            fontWeight: "500",
+            cursor: page === currentPage ? "default" : "pointer",
+          }}
         >
           {page}
         </button>
       ))}
 
-      {/* Sonrakı səhifə */}
+      {/* Sağ ox */}
       <button
         onClick={() => currentPage < lastPage && onPageChange(currentPage + 1)}
         disabled={currentPage === lastPage}
-        className={btnClass(currentPage === lastPage)}
-        aria-label="Sonrakı səhifə"
+        style={{
+          ...btnBaseStyle,
+          opacity: currentPage === lastPage ? 0.4 : 1,
+          cursor: currentPage === lastPage ? "default" : "pointer",
+        }}
       >
         ›
       </button>
@@ -54,16 +72,19 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, lastPage, onPageCh
   );
 };
 
-// Tailwind class-ları ilə stil funksiyası
-const btnClass = (disabled: boolean, isPageNumber: boolean = false) =>
-  `border border-[#5D56F1] rounded px-3 py-1 text-sm font-medium transition-all ${
-    isPageNumber
-      ? disabled
-        ? "bg-[#5D56F1] text-white cursor-default font-bold"
-        : "bg-transparent text-[#5D56F1] hover:bg-[#5D56F1]/20"
-      : disabled
-      ? "bg-transparent text-[#5D56F1] cursor-not-allowed"
-      : "bg-transparent text-[#5D56F1] hover:bg-[#5D56F1]/20"
-  }`;
+// Dizaynı birebir eyniləşdirən mərkəzləşdirilmiş stillər
+const btnBaseStyle: React.CSSProperties = {
+  width: "39px",           // Screenshot-dakı en
+  height: "43px",          // Screenshot-dakı hündürlük
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  border: "1px solid #5D56F1",
+  borderRadius: "5px",    // Şəkildəki daha yumşaq, amma iti olmayan künclər
+  fontSize: "18px",
+  transition: "all 0.2s ease",
+  outline: "none",
+  padding: 0,
+};
 
 export default Pagination;

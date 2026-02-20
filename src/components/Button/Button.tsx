@@ -10,10 +10,10 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ text, path }) => {
   return (
     <Link 
       href={path}
-      className="  group relative overflow-hidden flex items-center justify-center gap-2   px-7 py-[14px]  bg-[#635BFF] border-[1.5px] border-[#635BFF]  text-white hover:text-[#635BFF] text-[16px] font-bold rounded-full transition-colors duration-500 ease-in-out "
+      className="  group relative overflow-hidden flex items-center justify-center gap-2   px-7 py-[13px]  bg-[#635BFF] border-[2px] border-[#635BFF]  text-white hover:text-[#635BFF] text-[16px] font-bold rounded-full transition-colors duration-500 ease-in-out "
     >
       {/* Ağ rəngli "Loading" Fill Effekti */}
-      <span className=" absolute inset-0 w-0 bg-white  transition-all duration-500 ease-out    group-hover:w-full -z-0"></span>
+      <span className=" absolute inset-0 w-0 bg-white  rounded-full transition-all duration-500 ease-out    group-hover:w-full -z-0"></span>
 
       {/* Button İçindəki Elementlər */}
       <span className="relative z-10">{text}</span>
@@ -23,7 +23,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ text, path }) => {
         viewBox="0 0 24 24" 
         fill="none" 
         stroke="currentColor" 
-        strokeWidth="3" 
+        strokeWidth="4" 
         strokeLinecap="round" 
         strokeLinejoin="round"
       >

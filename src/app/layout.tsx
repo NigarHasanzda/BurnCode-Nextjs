@@ -8,7 +8,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="az">
-      <body>{children}</body>
+      <body suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }

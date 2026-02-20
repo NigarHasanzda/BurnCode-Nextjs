@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import * as React from "react"; 
@@ -17,6 +17,15 @@ export default function LangLayout({ children, params }: LayoutProps) {
   const resolvedParams = React.use(params); 
   const lang = resolvedParams.lang;
   const selectedLang = supportedLangs.includes(lang) ? lang : "az";
+
+  // ✅ BU HİSSƏNİ ƏLAVƏ ET
+  useEffect(() => {
+    const savedLang = localStorage.getItem("lang");
+
+    if (savedLang !== selectedLang) {
+      localStorage.setItem("lang", selectedLang);
+    }
+  }, [selectedLang]);
 
   return (
     <ClientOnly>
