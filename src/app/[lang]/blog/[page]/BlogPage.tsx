@@ -1,90 +1,90 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { useState, useEffect } from "react";
 import Pagination from "@/Pagination/Paginations";
 import BlogCard from "@/components/Card/BlogCard";
+import { BlogPost, BlogResponse } from "@/types/blog";
+import api from "@/lib/api";
 
-interface Post {
-  id: number;
-  title: string;
-  image: string;
-  date: string;
-}
-
-interface BlogPageProps {
-  lang?: string;
-}
-
-const BlogPage: React.FC<BlogPageProps> = ({ lang: initialLang }) => {
-  const router = useRouter();
-  const pathname = usePathname();
-
+const BlogPage = ({ lang: initialLang }: { lang?: string }) => {
   const [lang, setLang] = useState<string>(initialLang || "az");
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  console.log(posts)
 
-  // Lang-i localStorage və prop-dan oxu
+  console.log(posts);
+  // Initial lang from localStorage
   useEffect(() => {
-    if (initialLang) {
-      localStorage.setItem("lang", initialLang);
-      setLang(initialLang);
-    } else {
-      const storedLang = localStorage.getItem("lang");
-      if (storedLang) setLang(storedLang);
-    }
+    const storedLang = localStorage.getItem("lang") || initialLang || "az";
+    setLang(storedLang);
   }, [initialLang]);
 
-  // URL-dən page-i oxu
-  const pageFromURL = Number(pathname.split("/").pop());
-  const currentPage = !isNaN(pageFromURL) ? pageFromURL : 1;
-  const posts: Post[] = [
-    { id: 1, title: "ASML: The Invisible Giant Powering Global Chip Production", image: "https://images.unsplash.com/photo-1518770660439-4636190af475", date: "2025-09-24" },
-    { id: 2, title: "The Future of Artificial Intelligence", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995", date: "2025-08-29" },
-    { id: 3, title: "ASML: The Invisible Giant Powering Global Chip Production", image: "https://images.unsplash.com/photo-1518770660439-4636190af475", date: "2025-09-24" },
-    { id: 4, title: "The Future of Artificial Intelligence", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995", date: "2025-08-29" },
-    { id: 5, title: "ASML: The Invisible Giant Powering Global Chip Production", image: "https://images.unsplash.com/photo-1518770660439-4636190af475", date: "2025-09-24" },
-    { id: 6, title: "The Future of Artificial Intelligence", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995", date: "2025-08-29" },
-     { id: 1, title: "ASML: The Invisible Giant Powering Global Chip Production", image: "https://images.unsplash.com/photo-1518770660439-4636190af475", date: "2025-09-24" },
-     { id: 3, title: "ASML: The Invisible Giant Powering Global Chip Production", image: "https://images.unsplash.com/photo-1518770660439-4636190af475", date: "2025-09-24" },
-     { id: 4, title: "The Future of Artificial Intelligence", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995", date: "2025-08-29" },
-     { id: 5, title: "ASML: The Invisible Giant Powering Global Chip Production", image: "https://images.unsplash.com/photo-1518770660439-4636190af475", date: "2025-09-24" },
-    { id: 2, title: "The Future of Artificial Intelligence", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995", date: "2025-08-29" },
-    { id: 6, title: "The Future of Artificial Intelligence", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995", date: "2025-08-29" },
-    
-  ];
-  const postsPerPage = 6;
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  // Fetch posts function
+  const fetchPosts = async (page: number, language: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await api.get(`/blog?page=${page}`, {
+        headers: { "Accept-Language": language }, // hər requestdə lang göndər
+      });
+      const data: BlogResponse = res.data;
+      setPosts(data.data);
+      setTotalPages(data.meta?.last_page || 1);
+    } catch (err: any) {
+      setError(err.message || "Failed to fetch posts");
+      setPosts([]);
+      setTotalPages(1);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const paginatedPosts = posts.slice(
-    (currentPage - 1) * postsPerPage,
-    currentPage * postsPerPage
-  );
+  // Trigger API on lang or page change
+  useEffect(() => {
+    fetchPosts(currentPage, lang);
+  }, [lang, currentPage]);
 
-  const handlePageChange = (page: number) => {
-    router.push(`/${lang}/blog/${page}`, { scroll: false });
+  // Handle lang change
+  const handleLangChange = (newLang: string) => {
+    if (newLang === lang) return;
+    setLang(newLang);
+    setCurrentPage(1); // page reset
+    localStorage.setItem("lang", newLang);
   };
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4 lg:px-26">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {paginatedPosts.map((post) => (
-            <BlogCard
-      key={post.id}
-      title={post.title}
-      image={post.image}
-      date={post.date}
-    />
-          ))}
+    <section className="py-24 bg-white">
+      <div className="container mx-auto px-4 lg:px-20">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {loading
+            ? Array.from({ length: 6 }).map((_, idx) => (
+                <div key={idx} className="h-80 bg-gray-200 animate-pulse rounded-lg" />
+              ))
+            : error
+            ? <p className="col-span-3 text-center text-red-500">{error}</p>
+            : posts.map(post => (
+                <BlogCard
+                  key={post.id}
+                  title={post.title}
+                  image={post.image}
+                  created_at={post.created_at}
+                  slug={post.slug}
+                  lang={lang}
+                />
+              ))}
         </div>
 
-        <Pagination
-          currentPage={currentPage}
-          lastPage={totalPages}
-          lang={lang}
-          onPageChange={handlePageChange}
-        />
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            lastPage={totalPages}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
+        )}
       </div>
     </section>
   );

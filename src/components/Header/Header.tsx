@@ -16,14 +16,14 @@ const Header: React.FC<HeaderProps> = ({ currentLang }) => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },
-    { name: "Portfolio", path: "/portfolio" },
+    { name: "Portfolio", path: "/portfolio/1" },
     { name: "Blog", path: "/blog/1" },
     { name: "Contact", path: "/contact" },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#F7F8FD]">
-      <div className="max-w-[74%] mx-auto flex items-center justify-between px-6 lg:px-16 h-[100px]">
+      <div className="max-w-[74%] mx-auto flex items-center justify-between px-6 lg:px-16 h-[120px]">
         <Link href={`/${currentLang}`} className="logo flex items-center text-[41px]">
            <h1 className="Burncode_Logo">burn<span>c</span>ode</h1>
         </Link>

@@ -1,5 +1,6 @@
 import PortfolioPage from "./PortfolioPage";
 
+
 export const metadata = {
   title: "Portfolio | BurnCode",
   description:
@@ -12,5 +13,5 @@ export const metadata = {
 
 
 export default function PortfolioPages() {
-  return <PortfolioPage />;
+  return <PortfolioPage/>;
 }

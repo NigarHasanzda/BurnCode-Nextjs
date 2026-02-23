@@ -1,124 +1,97 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import ClientOnly from "../ClientOnly/ClientOnly";
+import { setLanguage as setLanguageApi } from "@/lib/api";
 
 const languages = [
   { code: "en", flag: "https://flagcdn.com/gb.svg" },
   { code: "az", flag: "https://flagcdn.com/az.svg" },
   { code: "ru", flag: "https://flagcdn.com/ru.svg" },
+
+
 ];
 
-interface Props {
-  currentLang: string;
+
+interface LanguageSelectorProps {
+  currentLang?: string; // optional
 }
 
-const LanguageSelector: React.FC<Props> = ({ currentLang }) => {
+const LanguageSelector: React.FC<LanguageSelectorProps> = ({ currentLang }) => {
   const router = useRouter();
   const pathname = usePathname();
-
-  const [selected, setSelected] = useState(
-    languages.find((l) => l.code === currentLang) || languages[0]
-  );
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [selected, setSelected] = useState(languages[0]);
   const [open, setOpen] = useState(false);
 
-  // 🔥 Dil dəyişməsini izləyən funksiya
-  const syncLanguage = () => {
-    const segments = pathname.split("/").filter(Boolean);
-
-    const urlLang =
-      segments.length && languages.some((l) => l.code === segments[0])
-        ? segments[0]
-        : null;
-
-    if (urlLang) {
-      const langObj = languages.find((l) => l.code === urlLang);
-      if (langObj) setSelected(langObj);
-      localStorage.setItem("lang", urlLang);
-    } else {
-      const storedLang = localStorage.getItem("lang");
-      if (storedLang) {
-        const langObj = languages.find((l) => l.code === storedLang);
-        if (langObj) setSelected(langObj);
-      }
-    }
-  };
-
+  // initial selection
   useEffect(() => {
-    syncLanguage();
+    const storedLang = currentLang || localStorage.getItem("lang");
+    const urlLang = pathname.split("/").filter(Boolean)[0];
+    const langObj =
+      languages.find((l) => l.code === storedLang) ||
+      languages.find((l) => l.code === urlLang) ||
+      languages[0];
 
-    // başqa tab üçün
-    window.addEventListener("storage", syncLanguage);
+    setSelected(langObj);
+    setLanguageApi(langObj.code);
+    localStorage.setItem("lang", langObj.code);
+  }, [pathname, currentLang]);
 
-    // eyni tab üçün custom event
-    window.addEventListener("languageChange", syncLanguage);
-
-    return () => {
-      window.removeEventListener("storage", syncLanguage);
-      window.removeEventListener("languageChange", syncLanguage);
+  // dropdown xaricinə klikdə bağlama
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
     };
-  }, [pathname]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const changeLanguage = (lang: typeof languages[0]) => {
     setSelected(lang);
-
-    // localStorage yenilə
+    setLanguageApi(lang.code);
     localStorage.setItem("lang", lang.code);
-
-    // custom event trigger et
-    window.dispatchEvent(new Event("languageChange"));
+    setOpen(false);
 
     const segments = pathname.split("/").filter(Boolean);
-
     if (languages.some((l) => l.code === segments[0])) {
       segments[0] = lang.code;
     } else {
       segments.unshift(lang.code);
     }
+    const newPath = "/" + segments.join("/");
+    router.push(newPath);
 
-    router.push("/" + segments.join("/"));
-    setOpen(false);
+    window.dispatchEvent(new CustomEvent("languageChange", { detail: lang.code }));
   };
 
   return (
-    <ClientOnly>
-      <div className="relative">
-        <button
-          onClick={() => setOpen(!open)}
-          className="group w-[58px] h-[45px] px-1 rounded-full border-[1.5px] flex items-center justify-center bg-white border-[#635BFF] shadow-sm transition-all duration-300"
-        >
-          <div className="relative w-6 h-4 rounded-[2px] overflow-hidden">
-            <Image
-              src={selected.flag}
-              alt={selected.code}
-              fill
-              className="object-cover"
-            />
-          </div>
-        </button>
+    <div ref={dropdownRef} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="group w-[58px] h-[45px] px-1 rounded-full border-[1.5px] flex items-center justify-center bg-white border-[#635BFF] shadow-sm"
+      >
+        <div className="relative w-6 h-4 overflow-hidden rounded-[2px]">
+          <img src={selected.flag} alt={selected.code} className="object-cover w-full h-full" />
+        </div>
+      </button>
 
-        {open && (
-          <div className="absolute right-0 mt-2 flex flex-col gap-6 w-[58px] bg-white border border-[#635BFF] rounded-[23px] z-50 py-4 px-2">
-            {languages.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => changeLanguage(lang)}
-                className="relative w-6 h-4 rounded-[2px] overflow-hidden mx-auto transition-transform hover:scale-110"
-              >
-                <Image
-                  src={lang.flag}
-                  alt={lang.code}
-                  fill
-                  className="object-cover"
-                />
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-    </ClientOnly>
+      {open && (
+        <div className="absolute right-0 mt-2 flex flex-col gap-4 w-[58px] bg-white border border-[#635BFF] rounded-[23px] z-50 py-4 px-2">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => changeLanguage(lang)}
+              className="relative w-6 h-4 overflow-hidden mx-auto transition-transform hover:scale-110"
+            >
+              <img src={lang.flag} alt={lang.code} className="object-cover w-full h-full" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

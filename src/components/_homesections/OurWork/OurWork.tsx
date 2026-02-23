@@ -70,7 +70,7 @@ const OurWork = () => {
           {mockWorks.map((work) => (
             <div key={work.id} className="w-full md:w-1/2 px-4">
               {/* Works Item Card */}
-              <div className="group bg-[#f3f4f6] rounded-[40px] p-5 pb-10 mb-[30px] h-[calc(100%-30px)] transition-all duration-300">
+              <div className="group bg-[#F7F8FD] rounded-[40px] p-5 pb-10 mb-[30px] h-[calc(100%-30px)] transition-all duration-300">
                 
                 {/* Image Section */}
                 <div className="mb-[30px] rounded-[30px] overflow-hidden transform-gpu">
@@ -85,7 +85,7 @@ const OurWork = () => {
 
                 {/* Content Section */}
                 <div className="px-5">
-                  <h2 className="text-[26px] font-bold text-[#1e1e2f] capitalize mb-5 leading-tight">
+                  <h2 className="text-[24px] font-semibold text-[#1e1e2f] capitalize mb-5 leading-tight">
                     {work.title}
                   </h2>
                   <p className="text-[#666] m-0 leading-relaxed">

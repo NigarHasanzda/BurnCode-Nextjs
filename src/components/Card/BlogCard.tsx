@@ -1,32 +1,58 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { useRouter } from "next/navigation";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 interface BlogCardProps {
   title: string;
   image: string;
-  date: string;
+  created_at: string;
+  slug: string;
+  lang: string;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ title, image, date }) => {
+export default function BlogCard({
+  title,
+  image,
+  created_at,
+  slug,
+  lang,
+}: BlogCardProps) {
+  const router = useRouter();
+
   return (
-    <div className="bg-[#F8F9FF] rounded-[35px] p-4 flex flex-col border-none transition-shadow duration-300 cursor-pointer">
-      <div className="relative w-full h-[220px] rounded-[30px] overflow-hidden mb-5">
-        <Image src={image} alt={title} fill className="object-cover" unoptimized />
+    <div
+      onClick={() => {
+        router.push(`/${lang}/blogs/${slug}`);
+        window.scrollTo(0, 0);
+      }}
+      className="group cursor-pointer bg-[#F7F9FB] rounded-[50px] p-3.5 h-full flex flex-col transition-all duration-300"
+    >
+      {/* Image Container */}
+      <div className="relative min-h-[230px] w-full bg-yellow-200 overflow-hidden rounded-[40px]">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+        />
       </div>
-      <div className="px-2 pb-2">
-        <div className="flex items-center gap-2 text-gray-500 text-[13px] mb-3 font-medium">
-          <CalendarMonthIcon sx={{ fontSize: 16, color: "#6b7280" }} />
-          <span>{date}</span>
+
+      {/* Content */}
+      <div className="pt-8 pb-4 px-2">
+        {/* Date Section */}
+        <div className="flex items-center gap-3 text-[#2c2f35] mb-4">
+          {/* Şəkildəki təqvim ikonu üçün sadə SVG */}
+          <CalendarMonthIcon sx={{ fontSize: 15, color: "#6b7280" }} />
+          <span className="text-[16px] font-medium opacity-80">{created_at}</span>
         </div>
-        <h2 className="text-[#1a1a2e] text-[19px] font-bold leading-[1.4] line-clamp-3">
+
+        {/* Title */}
+        <h2 className="text-[#1A1C20] text-[23px] font-[500] leading-[1.3] tracking-tight transition-colors duration-300">
           {title}
         </h2>
       </div>
     </div>
   );
-};
-
-export default BlogCard;
+}
