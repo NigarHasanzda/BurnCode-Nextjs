@@ -4,14 +4,12 @@ import Link from 'next/link';
 
 const Footer = () => {
     return (
-        <footer className="w-full bg-[#F7F8FD] pt-16 pb-8 px-4 md:px-20 lg:px-75 font-sans text-[#1a1a1a]">
+        <footer className="w-full bg-[#F7F8FD] pt-16 pb-10 px-4 md:px-20 lg:px-79 font-sans text-[#1a1a1a]">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
                 <div className="md:col-span-6 lg:col-span-7">
                     <div className="flex items-center mb-6">
                         <Link href="/" className="logo flex items-center text-[41px] " >
-                            <span className="font-extrabold text-[#0D0D0D]">burn</span>
-                            <span className="font-extrabold text-[#635BFF] -ml-[1px]">c</span>
-                            <span className="font-extrabold text-[#0D0D0D] -ml-[0.5px]">ode</span>
+                            <h1 className="Burncode_Logo">burn<span>c</span>ode</h1>
                         </Link>
                     </div>
                     <p className="text-[#4b5563] text-sm leading-relaxed max-w-md mb-8">

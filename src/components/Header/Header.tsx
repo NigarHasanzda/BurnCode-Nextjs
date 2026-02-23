@@ -17,17 +17,15 @@ const Header: React.FC<HeaderProps> = ({ currentLang }) => {
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },
     { name: "Portfolio", path: "/portfolio" },
-    { name: "Blog", path: "/blog" },
+    { name: "Blog", path: "/blog/1" },
     { name: "Contact", path: "/contact" },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#F7F8FD]">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 lg:px-16 h-[100px]">
+      <div className="max-w-[74%] mx-auto flex items-center justify-between px-6 lg:px-16 h-[100px]">
         <Link href={`/${currentLang}`} className="logo flex items-center text-[41px]">
-          <span className="font-extrabold text-[#0D0D0D]">burn</span>
-          <span className="font-extrabold text-[#635BFF] -ml-[1px]">c</span>
-          <span className="font-extrabold text-[#0D0D0D] -ml-[0.5px]">ode</span>
+           <h1 className="Burncode_Logo">burn<span>c</span>ode</h1>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-10">

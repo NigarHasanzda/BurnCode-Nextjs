@@ -21,7 +21,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ name, description, image, slu
       <div className="p-5">
         {/* Header with Arrow */}
         <div className="flex items-center justify-between border-b border-[#e5e7eb] pb-[25px] mb-[25px]">
-          <h2 className="text-[24px] font-[400] text-[#1e1e2f] w-full max-w-[200px] capitalize leading-tight">
+          <h2 className="text-[24px] font-[500] text-[#1e1e2f] w-full max-w-[200px] capitalize leading-tight">
             {name}
           </h2>
           <Link

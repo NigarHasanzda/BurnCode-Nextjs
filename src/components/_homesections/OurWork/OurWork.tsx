@@ -60,7 +60,7 @@ const OurWork = () => {
           <div className="w-full md:w-3/12 lg:w-4/12 flex md:justify-end">
             <PrimaryButton 
               text={t.allPortfolio} 
-              path={`/${lang}/portfolio`} 
+              path={`/portfolio`} 
             />
           </div>
         </div>

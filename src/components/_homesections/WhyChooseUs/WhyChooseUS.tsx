@@ -23,7 +23,7 @@ const WhyChooseUs = () => {
 
   return (
     <section className="bg-[#F7F8FD] py-[100px] px-0">
-      <div className="max-w-[1320px] mx-auto px-4">
+      <div className="max-w-[68%] mx-auto px-4">
         
         {/* Üst Başlıq Hissəsi */}
         <div className="flex flex-wrap items-center mb-12">
@@ -59,7 +59,7 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Explore Alt Kartı */}
-        <div className="w-full px-3">
+        <div className="w-full ">
           <div className="relative bg-white rounded-[40px] p-[70px] overflow-hidden">
             
             {/* Sağ Üstdəki İkon */}
@@ -88,7 +88,7 @@ const WhyChooseUs = () => {
                     <a 
                       href={contact?.linkedin_page} 
                       target="_blank" 
-                      className="inline-block bg-[#f3f4f6] text-[#1e1e2f] font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-[#5e5ce6] hover:text-white"
+                      className="inline-block  bg-[#f3f4f6] text-[#1e1e2f] font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-[#5e5ce6] hover:text-white"
                     >
                       {t.connectLinkedIn}
                     </a>
@@ -97,7 +97,7 @@ const WhyChooseUs = () => {
                     <a 
                       href={contact?.instagram_page} 
                       target="_blank" 
-                      className="inline-block bg-[#f3f4f6] text-[#1e1e2f] font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-[#5e5ce6] hover:text-white"
+                      className="inline-block bg-[#f3f4f6] text-[#1e1e2f] font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-[#5e5ce6] hover:text-white"
                     >
                       {t.connectInstagram}
                     </a>

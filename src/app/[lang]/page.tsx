@@ -1,5 +1,6 @@
 import ChooseUsSection from "@/components/_homesections/ChooseUs/ChooseUSSection";
 import Hero from "@/components/_homesections/HeroSection/HeroSection";
+import LatestBlogArticle from "@/components/_homesections/LatestBlogARticle/LatestBlogArticle";
 import OurWork from "@/components/_homesections/OurWork/OurWork";
 import ServicesSection from "@/components/_homesections/ServicesSection/ServicesSection";
 import WhyChooseUs from "@/components/_homesections/WhyChooseUs/WhyChooseUS";
@@ -28,6 +29,8 @@ export default function Home({
       <ServicesSection lang={lang} />
       <OurWork />
       <WhyChooseUs />
+      <LatestBlogArticle />
+     
     </>
   );
 }

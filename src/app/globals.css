@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;500;600;700;1,400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Fredericka+the+Great&display=swap');
 
 @import "tailwindcss";
 
@@ -10,6 +11,16 @@
 .logo{
     font-family: "Lora", serif;
 }
+.Burncode_Logo {
+     font-family: "DM Serif Text", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.Burncode_Logo span {
+    color: #5D56F1;
+}
+
 
 @keyframes slide1 {
   0% { transform: translateY(-100%) translateX(-10%); opacity: 0; }
