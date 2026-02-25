@@ -7,9 +7,13 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import { MessageService } from "@/services/blog/SendMessage";
+
+const messageService = new MessageService();
 
 const ContactPage = () => {
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [hovered, setHovered] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -24,11 +28,29 @@ const ContactPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const submitForm = (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSuccess(true);
-    setTimeout(() => setSuccess(false), 5000);
-    setFormData({ firstName: "", lastName: "", phone: "", email: "", message: "" });
+    setError(null);
+
+    const messageData = {
+      name: formData.firstName.trim(),
+      surname: formData.lastName.trim(),
+      phone: formData.phone.trim(),
+      email: formData.email.trim(),
+      body: formData.message.trim(),
+    };
+
+    try {
+      await messageService.sendMessage(messageData);
+      setSuccess(true);
+      setFormData({ firstName: "", lastName: "", phone: "", email: "", message: "" });
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (err: any) {
+      setError(
+        err.response?.data?.message ||
+        "Xəta baş verdi. Zəhmət olmasa, bütün sahələri düzgün doldurun."
+      );
+    }
   };
 
   return (
@@ -37,7 +59,6 @@ const ContactPage = () => {
       {/* 1. Üst Məlumat Kartları */}
       <section className="pt-20 pb-12 px-6">
         <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          
           {/* Address */}
           <div className="bg-[#F8F9FF] rounded-[35px] p-8 shadow-sm border border-white/50">
             <div className="flex items-center justify-between border-b border-gray-200/60 pb-5 mb-5">
@@ -86,14 +107,11 @@ const ContactPage = () => {
       {/* 2. Form Section */}
       <section className="py-12 px-6">
         <div className="max-w-[1240px] mx-auto flex flex-col lg:flex-row items-start gap-12">
-          
-          {/* Sol Tərəf - Yazılar */}
           <div className="w-full lg:w-[45%] lg:pt-10">
             <span className="text-[#635BFF] font-semibold text-[15px] block mb-2">Contact Us</span>
             <h2 className="text-[48px] lg:text-[56px] font-extrabold text-[#1a1a2e] leading-[1.1] mb-12">
               Get in touch with us today
             </h2>
-            
             <h3 className="text-[32px] font-bold text-[#1a1a2e] mb-6">Follow Us:</h3>
             <div className="flex gap-3">
               {[
@@ -114,6 +132,11 @@ const ContactPage = () => {
               {success && (
                 <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" className="mb-4 rounded-xl">
                   Message sent!
+                </Alert>
+              )}
+              {error && (
+                <Alert severity="error" className="mb-4 rounded-xl">
+                  {error}
                 </Alert>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -159,6 +182,8 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Google Maps */}
       <section className="py-[100px] px-6">
         <div className="max-w-[1320px] mx-auto rounded-[40px] overflow-hidden">
           <iframe

@@ -15,12 +15,12 @@ export const metadata = {
   },
 };
 
-export default function Home({
+export default async function Home({
   params,
 }: {
   params: { lang: string };
 }) {
-  const { lang } = params;
+  const { lang } = await params; // burada await istifadə edirik
 
   return (
     <>
@@ -30,7 +30,6 @@ export default function Home({
       <OurWork />
       <WhyChooseUs />
       <LatestBlogArticle />
-     
     </>
   );
 }
