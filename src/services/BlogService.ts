@@ -1,19 +1,16 @@
-// BlogService.ts
 import { BlogPost, BlogResponse } from "@/types/blog";
 import api from "@/lib/api";
 
 export const fetcher = async (url: string): Promise<BlogResponse> => {
-  const res = await api.get(url);
+  const res = await api.get<BlogResponse>(url);
   return res.data;
 };
 
 export const getBlogPosts = async (page: number, lang: string): Promise<BlogResponse> => {
-  const response = await api.get(`/blog?page=${page}`, {
-    headers: {
-      "Accept-Language": lang, // hər requestdə cari dili göndəririk
-    },
+  const res = await api.get<BlogResponse>(`/blog?page=${page}`, {
+    headers: { "Accept-Language": lang },
   });
-  return response.data;
+  return res.data;
 };
 
 export const getSingleBlogPost = async (

@@ -23,11 +23,15 @@ const Header: React.FC<HeaderProps> = ({ currentLang }) => {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#F7F8FD]">
-      <div className="max-w-[74%] mx-auto flex items-center justify-between px-6 lg:px-16 h-[120px]">
-        <Link href={`/${currentLang}`} className="logo flex items-center text-[41px]">
+      {/* max-w-[74%] saxlanıldı, mobildə sıxılmaması üçün w-full və responsive paddinglər əlavə edildi */}
+      <div className="lg:max-w-[74%] w-full mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-16 h-[80px] md:h-[120px]">
+        
+        {/* Logo: Mobildə ölçüsü bir az kiçildi ki, menyu ilə toqquşmasın */}
+        <Link href={`/${currentLang}`} className="logo flex items-center text-[28px] sm:text-[35px] lg:text-[41px]">
            <h1 className="Burncode_Logo">burn<span>c</span>ode</h1>
         </Link>
 
+        {/* Navigation: Olduğu kimi qaldı */}
         <nav className="hidden lg:flex items-center gap-10">
           {navLinks.map((link) => (
             <Link
@@ -40,14 +44,17 @@ const Header: React.FC<HeaderProps> = ({ currentLang }) => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4 lg:gap-6">
+        {/* Sağ tərəf: İkonlar və butonlar */}
+        <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
+          {/* Hamburger Menu: Yalnız mobildə görünür */}
           <button
             className="lg:hidden p-2 rounded-md hover:bg-gray-200 transition"
             onClick={() => setSidebarOpen(true)}
           >
-            <MenuIcon sx={{ fontSize: 33 }} />
+            <MenuIcon sx={{ fontSize: { xs: 28, sm: 33 } }} />
           </button>
 
+          {/* Desktop Actions: Yalnız lg ekranda görünür */}
           <div className="hidden lg:flex items-center gap-4 lg:gap-6">
             <LanguageSelector currentLang={currentLang} />
             <PrimaryButton text="Dashboard" path={`/${currentLang}/dashboard`} />
@@ -60,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang }) => {
           isOpen={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
           links={navLinks}
-          currentLang={currentLang} // Burada currentLang ötürülür
+          currentLang={currentLang}
         />
       )}
     </header>

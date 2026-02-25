@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface PortfolioCardProps {
   title: string;
@@ -19,37 +18,41 @@ export default function PortfolioCard({
   slug,
   lang,
 }: PortfolioCardProps) {
-  const router = useRouter();
+  // Alt text default dəyər
+  const altText = title || "Portfolio Project Image";
 
   return (
-    <div
-      onClick={() => {
-        router.push(`/${lang}/singleportfolio/${slug}`);
-        window.scrollTo(0, 0);
-      }}
-      className="relative overflow-hidden bg-[#F7F8FD] rounded-[40px] p-2 h-full mb-8 group cursor-pointer transition hover:shadow-xl"
-    >
+    <div className="border rounded-[40px] overflow-hidden shadow-md hover:shadow-lg transition">
       {/* Image */}
-      <div className="rounded-[40px] overflow-hidden">
-        <Image
-          src={image}
-          alt={title}
-          width={600}
-          height={400}
-          className="rounded-[40px] transition-all duration-500 group-hover:scale-110 object-cover"
-        />
+      <div className="relative w-full h-[250px] md:h-[200px] lg:h-[220px]">
+        {image ? (
+          <Image
+            src={image}
+            alt={altText} // <- burada artıq həmişə string olacaq
+            fill
+            className="object-cover"
+          />
+        ) : (
+          <div className="bg-gray-200 w-full h-full flex items-center justify-center">
+            <span className="text-gray-500">Şəkil yoxdur</span>
+          </div>
+        )}
       </div>
 
       {/* Content */}
-      <div className="m-5">
-        <p className="flex items-center gap-2 text-sm mb-3 text-gray-600">
-          <CalendarMonthIcon sx={{ fontSize: 16 }} />
-          {date}
-        </p>
+      <div className="p-6">
+        <h3 className="text-lg font-semibold mb-2">{title}</h3>
+        <p className="text-gray-500 text-sm mb-4">{date}</p>
 
-        <h2 className="leading-[1.4] text-[22px] font-bold group-hover:text-[#5D56F1] transition">
-          {title}
-        </h2>
+        {/* Link */}
+        {slug && (
+          <Link
+            href={`/${lang}/portfolio/${slug}`}
+            className="text-[#635BFF] font-medium hover:underline"
+          >
+            Layihəyə bax
+          </Link>
+        )}
       </div>
     </div>
   );

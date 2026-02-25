@@ -1,59 +1,66 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useRouter, useParams } from "next/navigation";
 import PortfolioCard from "@/components/Card/PortfolioCard";
+import { Project, ProjectResponse } from "@/types/portfolio";
+import { getPortfolioCategories, getProjects } from "@/services/PortfolioService";
 import Pagination from "@/Pagination/Paginations";
-
-interface PortfolioItem {
-  id: number;
-  title: string;
-  image: string;
-  date: string;
-  category: string;
-  slug: string;
-}
-
-/* ================= MOCK DATA ================= */
-
-const MOCK_DATA: PortfolioItem[] = Array.from({ length: 24 }).map(
-  (_, index) => ({
-    id: index + 1,
-    title: `Project ${index + 1}`,
-    image: "/service-img-1.jpg",
-    date: "12 May 2024",
-    category: index % 2 === 0 ? "web" : "mobile",
-    slug: `project-${index + 1}`,
-  })
-);
 
 const ITEMS_PER_PAGE = 6;
 
 export default function PortfolioPage() {
   const { lang, page } = useParams();
   const router = useRouter();
-
   const currentPage = Number(page) || 1;
+
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>("*");
 
-  /* ================= FILTER ================= */
+  // ================= FETCH PROJECTS =================
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const res: ProjectResponse = await getProjects(lang as string, currentPage);
+        setProjects(res.items || []);
+        setTotalPages(res.meta?.last_page || 1);
+      } catch (err) {
+        setError("Layihələr gətirilərkən xəta baş verdi.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [lang, currentPage]);
 
+  // ================= FETCH CATEGORIES =================
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const cats = await getPortfolioCategories(lang as string);
+        setCategories(["*", ...cats]); // All üçün "*"
+      } catch (err) {
+        console.error("Kateqoriyalar gətirilərkən xəta:", err);
+      }
+    };
+    fetchCategories();
+  }, [lang]);
+
+  // ================= FILTER =================
   const filteredData = useMemo(() => {
-    if (activeFilter === "*") return MOCK_DATA;
-    return MOCK_DATA.filter((item) => item.category === activeFilter);
-  }, [activeFilter]);
+    if (activeFilter === "*") return projects;
+   console.log("Active Filter:", activeFilter, "Projects:", projects); // Debug üçün əlavə edildi
+  }, [activeFilter, projects]);
 
-  /* ================= PAGINATION ================= */
-
-  const lastPage = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
-
-  const paginatedData = filteredData.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
-
-  const handlePageChange = (newPage: number) => {
-    router.push(`/${lang}/portfolio/${newPage}`);
+  // ================= HANDLERS =================
+  const handlePageChange = (page: number) => {
+    if (page === currentPage) return;
+    router.push(`/${lang}/portfolio/${page}`);
   };
 
   const handleFilterClick = (filter: string) => {
@@ -61,13 +68,14 @@ export default function PortfolioPage() {
     router.push(`/${lang}/portfolio/1`);
   };
 
+  // ================= RENDER =================
   return (
     <section className="py-24">
       <div className="container mx-auto px-4">
-        
+
         {/* FILTER */}
         <div className="flex justify-center flex-wrap gap-4 mb-12">
-          {["*", "web", "mobile"].map((filter) => (
+          {categories.map((filter) => (
             <button
               key={filter}
               onClick={() => handleFilterClick(filter)}
@@ -83,33 +91,39 @@ export default function PortfolioPage() {
           ))}
         </div>
 
+        {/* LOADING / ERROR */}
+        {loading && <p className="text-center text-gray-500">Yüklənir...</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
+
         {/* CARDS */}
-        {paginatedData.length > 0 ? (
+        {!loading && !error && filteredData.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {paginatedData.map((item) => (
+            {filteredData.map((item) => (
               <PortfolioCard
                 key={item.id}
-                title={item.title}
+                title={item.title || "Untitled"}
                 image={item.image}
-                date={item.date}
+                date={item.createdAt || ""}
                 slug={item.slug}
                 lang={lang as string}
               />
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500">
-            Bu kateqoriyada layihə yoxdur.
-          </p>
+          !loading && !error && (
+            <p className="text-center text-gray-500">Bu kateqoriyada layihə yoxdur.</p>
+          )
         )}
 
         {/* PAGINATION */}
-        {lastPage > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            lastPage={lastPage}
-            onPageChange={handlePageChange}
-          />
+        {totalPages > 1 && (
+          <div className="mt-12">
+            <Pagination
+              currentPage={currentPage}
+              lastPage={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
         )}
       </div>
     </section>

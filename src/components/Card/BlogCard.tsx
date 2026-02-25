@@ -27,29 +27,30 @@ export default function BlogCard({
         router.push(`/${lang}/blogs/${slug}`);
         window.scrollTo(0, 0);
       }}
-      className="group cursor-pointer bg-[#F7F9FB] rounded-[50px] p-3.5 h-full flex flex-col transition-all duration-300"
+      className="group cursor-pointer bg-[#F7F9FB] rounded-[48px]  p-[14px]  pt-3 h-fit flex flex-col transition-all duration-300 "
     >
-      {/* Image Container */}
-      <div className="relative min-h-[230px] w-full bg-yellow-200 overflow-hidden rounded-[40px]">
-        <Image
+      <div className="relative w-full overflow-hidden rounded-[38px] bg-gray-200 min-h-[220px]">
+
+        <img
           src={image}
           alt={title}
-          fill
-          className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+          className="w-full h-auto min-h-[220px] object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
         />
       </div>
 
-      {/* Content */}
-      <div className="pt-8 pb-4 px-2">
-        {/* Date Section */}
-        <div className="flex items-center gap-3 text-[#2c2f35] mb-4">
-          {/* Şəkildəki təqvim ikonu üçün sadə SVG */}
-          <CalendarMonthIcon sx={{ fontSize: 15, color: "#6b7280" }} />
-          <span className="text-[16px] font-medium opacity-80">{created_at}</span>
+      {/* Content Section */}
+      <div className="pt-8 pb-4 px-8 flex flex-col gap-3">
+        
+        {/* Date - Şəkildəki kiçik və boz tonlu tarix */}
+        <div className="flex items-center gap-2 text-[#1A1C20]">
+          <CalendarMonthIcon sx={{ fontSize: 16, color: "#1A1C20" }} />
+          <span className="text-[15px] font-medium opacity-90">
+            {created_at}
+          </span>
         </div>
 
-        {/* Title */}
-        <h2 className="text-[#1A1C20] text-[23px] font-[500] leading-[1.3] tracking-tight transition-colors duration-300">
+        {/* Title - Şəkildəki qalınlıq və sətir arası məsafə */}
+        <h2 className="text-[#1A1C20] text-[23px] font-[500] leading-[1.3] tracking-tight transition-colors duration-300 ">
           {title}
         </h2>
       </div>
