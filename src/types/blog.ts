@@ -4,8 +4,17 @@ export interface BlogPost {
   slug: string;
   image: string;
   created_at: string;
-  category?: string;
-  content?: string;
+
+  body: string; // ✅ content yox, body gəlir
+  description?: string;
+  meta_description?: string;
+  meta_keywords?: string;
+
+  category?: {
+    id: number;
+    name: string;
+    slug: string;
+  };
 }
 
 export interface BlogResponse {

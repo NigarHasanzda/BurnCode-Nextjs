@@ -15,14 +15,14 @@ export const getBlogPosts = async (page: number, lang: string): Promise<BlogResp
   });
   return response.data;
 };
-// services/BlogService.ts
+
 export const getSingleBlogPost = async (
   slug: string,
   lang: string
-): Promise<BlogPost> => {
+): Promise<{ data: BlogPost }> => {
   const res = await api.post(
-    "/blog/singleNews",
-    { slug },
+    `/blog/singleNews?slug=${slug}`, // <- query param
+    {}, // body boş
     {
       headers: {
         "Accept-Language": lang,

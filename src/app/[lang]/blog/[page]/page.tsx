@@ -1,11 +1,9 @@
-// app/[lang]/blog/[page]/page.tsx  və ya uyğun dynamic route
 import React from "react";
 import BlogPage from "./BlogPage";
 
 export const metadata = {
   title: "Blog | BurnCode",
-  description:
-    "BurnCode bloqu: AI alətləri, texnologiya xəbərləri və proqramlaşdırma tövsiyələri ilə işinizi daha səmərəli edin. Yenilikləri və faydalı məqalələri burada oxuyun.",
+  description: "BurnCode bloqu: AI alətləri, texnologiya xəbərləri və proqramlaşdırma tövsiyələri.",
   icons: {
     icon: "/logoVite.png",
     apple: "/logoVite.png",
@@ -19,12 +17,10 @@ interface Props {
   };
 }
 
+// Next.js-in yeni versiyalarında params bir Promise ola bilər, 
+// lakin standard istifadədə birbaşa oxumaq kifayətdir.
 const BlogDynamicPage = ({ params }: Props) => {
-  const { lang } = params;
-
-  // Artıq currentPage-i prop kimi keçirməyə ehtiyac yoxdur,
-  // BlogPage özü usePathname ilə oxuyacaq
-  return <BlogPage lang={lang} />;
+  return <BlogPage />;
 };
 
 export default BlogDynamicPage;
