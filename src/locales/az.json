@@ -1,0 +1,40 @@
+{
+  "hero": {
+    "subtitle": "HAQQIMIZDA",
+    "titleLine1": "Biznesinizi virtual",
+    "titleLine2": "dünyaya gətirin",
+    "titleHighlight": "Burncode ilə",
+    "description": "Burncode 5 ildən çoxdur ki, müştərilərinə xidmət göstərir. Bu müddət ərzində bir çox kiçik və böyük layihələr uğurla həyata keçirilmişdir. Biz sizə həm keyfiyyətli iş, həm də münasib qiymətlər təqdim edirik.",
+    "button1": "Pulsuz Məşvərət",
+    "button2": "Portfolionu Gör"
+  }
+,
+ 
+  "chooseUs": {
+    "title": "🚀 Niyə proqram təminatı üçün bizi seçməlisiniz?",
+    "description1": "<span class=\"font-semibold text-[#1a1a2e]\">Burncode</span>-da biz sadəcə proqram təminatı hazırlamırıq — biz nəticə verən güclü rəqəmsal həllər yaradırıq. MVP hazırlamaq istəyən startaplardan tutmuş, köhnə sistemlərini müasirləşdirən böyük müəssisələrə qədər biz sizin etibarlı innovasiya tərəfdaşınızıq.",
+    "description2": "Biz funksional, miqyaslana bilən və istifadəçi dostu həllər təqdim etmək üçün qabaqcıl texnologiyaları, yüksək təhlükəsizlik standartlarını və istifadəçi davranışını dərindən başa düşməyi birləşdiririk. İdeyadan icraya qədər biz sizin vizyonunuzu bazara hazır məhsula çevirmək üçün strategiya, istedad və ehtirasımızı bir araya gətiririk. 🚀 Gəlin gələcəyi birlikdə quraq — hər dəfə bir sətir kodla.",
+    "button": "Pulsuz Konsultasiya",
+    "features": {
+      "scalability": "Asan miqyaslanma",
+      "impact": "Dərhal təsir",
+      "expertise": "Bilik və təcrübə",
+      "timezone": "Vaxt zonası uyğunluğu",
+      "flexibility": "Tam çeviklik",
+      "support": "Proaktiv dəstək"
+    }
+  },
+
+  "servicesSection": {
+    "ourServices": "Xidmətlərimiz",
+    "whatWeOffer": "Bu gün sizə nələr təklif edə bilərik",
+    "viewAllServices": "Bütün Xidmətlərə Bax",
+    "loading": "Yüklənir..."
+  },
+  "ourWork": {
+    "subtitle": "Layihələrimiz ",
+    "title": "Hazırladığımız layihələrlə tanış olun",
+    "allPortfolio": "Bütün layihələr",
+    "mockDescription": "Biznesiniz üçün nəticəyönümlü və innovativ rəqəmsal həllərin hazırlanması prosesi."
+  }
+}

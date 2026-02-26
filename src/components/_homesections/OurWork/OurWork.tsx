@@ -1,94 +1,94 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import PrimaryButton from '@/components/Button/Button';
+import { getProjects } from '@/services/PortfolioService';
+import { Project } from '@/types/portfolio';
 
-// Mock Data
-const mockWorks = [
-  {
-    id: 1,
-    title: "Operation Atlas",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: "/service-img-1.jpg",
-  },
-  {
-    id: 2,
-    title: "Quantum Quest",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: "/service-img-1.jpg",
-  },
-  {
-    id: 3,
-    title: "Blue Horizon Initiative",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: "/service-img-1.jpg",
-  },
-  {
-    id: 4,
-    title: "Project Alpha",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: "/service-img-1.jpg",
-  }
-];
+// Lokallaşdırma faylları
+import az from "@/locales/az.json";
+import en from "@/locales/en.json";
+import ru from "@/locales/ru.json";
+import Link from 'next/link';
 
 const OurWork = () => {
-  // Real proyektinizdə t və lang obyektləri props-dan gələcək
-  const lang = "en";
-  const t = {
-    ourWorks: "our works",
-    excellence: "Excellence from concept to completion",
-    allPortfolio: "All portfolio"
-  };
+  const params = useParams();
+  const lang = (params?.lang as string) || "en";
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const data = await getProjects(lang, 1);
+        // İlk 4 layihəni götürürük
+        setProjects(data.items.slice(0, 4));
+      } catch (error) {
+        console.error("Data gətirilərkən xəta:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProjects();
+  }, [lang]);
+
+  const translations: any = { az, en, ru };
+  const t = translations[lang]?.ourWork || en.ourWork;
+
+  if (loading) return <div className="py-20 text-center font-medium text-gray-400">Loading...</div>;
 
   return (
     <section className="py-[100px] pb-[70px] bg-white">
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto px-4 lg:max-w-[70%]"> {/* Dizayna uyğun balanslaşdırıldı */}
         
         {/* Başlıq Hissəsi */}
         <div className="flex flex-wrap items-center mb-12">
-          <div className="w-full md:w-9/12 lg:w-8/12">
+          <div className="w-full md:w-9/12 lg:w-8/12 text-center md:text-left">
             <div className="mb-4">
               <span className="block text-[#5e5ce6] font-semibold mb-2 uppercase tracking-widest text-sm">
-                {t.ourWorks}
+                {t.subtitle}
               </span>
-              <h2 className="text-[42px] font-bold text-[#1e1e2f] leading-tight">
-                {t.excellence}
+              <h2 className="text-[32px] md:text-[42px] font-bold text-[#1e1e2f] leading-tight">
+                {t.title}
               </h2>
             </div>
           </div>
           
-          <div className="w-full md:w-3/12 lg:w-4/12 flex md:justify-end">
+          <div className="w-full md:w-3/12 lg:w-4/12 flex justify-center md:justify-end mt-4 md:mt-0">
             <PrimaryButton 
               text={t.allPortfolio} 
-              path={`/portfolio`} 
+              path={`/portfolios/1`} 
             />
           </div>
         </div>
 
-        {/* Grid Area */}
+        {/* Grid Area - API-dan gələn 4 layihə */}
         <div className="flex flex-wrap -mx-4">
-          {mockWorks.map((work) => (
-            <div key={work.id} className="w-full md:w-1/2 px-4">
-              {/* Works Item Card */}
-              <div className="group bg-[#F7F8FD] rounded-[40px] p-5 pb-10 mb-[30px] h-[calc(100%-30px)] transition-all duration-300">
+          {projects.map((work) => (
+            <div key={work.id} className="w-full md:w-1/2 px-4 mb-6">
+              {/* Card Container */}
+              <div className="group bg-[#F7F8FD] rounded-[40px] p-5 pb-10 h-full transition-all duration-300  flex flex-col">
                 
                 {/* Image Section */}
-                <div className="mb-[30px] rounded-[30px] overflow-hidden transform-gpu">
-                  <div className="relative h-[300px] w-full overflow-hidden">
+                <div className="mb-[30px] rounded-[30px] overflow-hidden">
+                  <div className="relative h-[250px] md:h-[350px] w-full overflow-hidden">
                     <img
                       src={work.image}
                       alt={work.title}
-                      className="w-full h-full object-cover rounded-[30px] transition-transform duration-500 ease-out group-hover:scale-110"
+                      className="w-full h-full object-cover rounded-[30px] transition-transform duration-700 ease-in-out group-hover:scale-110"
                     />
                   </div>
                 </div>
 
                 {/* Content Section */}
-                <div className="px-5">
-                  <h2 className="text-[24px] font-semibold text-[#1e1e2f] capitalize mb-5 leading-tight">
-                    {work.title}
-                  </h2>
-                  <p className="text-[#666] m-0 leading-relaxed">
+                <div className="px-5 flex-1">
+                  <Link href={`/${lang}/portfolio/${work.slug}`} className="block mb-4">
+                    <h3 className="text-[18px] md:text-[22px] font-semibold text-[#1e1e2f] transition-colors duration-300 group-hover:text-[#5e5ce6]">
+                      {work.title}
+                    </h3>
+                  </Link>
+                  <p className="text-[#6b6b84] m-0 leading-relaxed text-[15px] md:text-[16px] line-clamp-3">
                     {work.description}
                   </p>
                 </div>

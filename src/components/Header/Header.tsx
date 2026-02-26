@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang }) => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },
-    { name: "Portfolio", path: "/portfolio/1" },
+    { name: "Portfolio", path: "/portfolios/1" },
     { name: "Blog", path: "/blog/1" },
     { name: "Contact", path: "/contact" },
   ];

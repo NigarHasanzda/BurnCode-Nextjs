@@ -26,10 +26,10 @@ export default async function Home({
     <>
       <Hero />
       <ChooseUsSection />
-      <ServicesSection lang={lang} />
+      <ServicesSection  />
       <OurWork />
       <WhyChooseUs />
-      <LatestBlogArticle />
+      {/* <LatestBlogArticle /> */}
     </>
   );
 }

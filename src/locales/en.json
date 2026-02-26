@@ -1,0 +1,41 @@
+{
+  "hero": {
+    "subtitle": "ABOUT OUR COMPANY",
+    "titleLine1": "Bring your business into",
+    "titleLine2": "the virtual world",
+    "titleHighlight": "with Burncode",
+    "description": "Burncode has been serving its clients for more than 5 years. During this time, we have successfully delivered a number of small and large projects. We offer you both quality work and reasonable prices.",
+    "button1": "Free Consultation",
+    "button2": "View Portfolio"
+  }
+,
+
+  "chooseUs": {
+    "title": "🚀 Why choose us for software development?",
+    "description1": "At <span class=\"font-semibold text-[#1a1a2e]\">Burncode</span>, we don't just build software — we create powerful digital solutions that deliver results. From startups seeking to develop a Minimum Viable Product (MVP) to large enterprises modernizing legacy systems, we are your trusted innovation partner.",
+    "description2": "We combine cutting-edge technologies, top security standards, and a deep understanding of user behavior to deliver solutions that are functional, scalable, and user-friendly. From idea to execution, we bring together strategy, talent, and passion to turn your vision into a market-ready product. 🚀 Let's build the future together — one line of code at a time.",
+    "button": "Free Consultation",
+    "features": {
+      "scalability": "Easy scalability",
+      "impact": "Immediate impact",
+      "expertise": "Knowledge and expertise",
+      "timezone": "Time-zone alignment",
+      "flexibility": "Full flexibility",
+      "support": "Proactive support"
+    }
+  }
+
+,
+  "servicesSection": {
+    "ourServices": "Our Services",
+    "whatWeOffer": "What we can offer you today",
+    "viewAllServices": "View All Services",
+    "loading": "Loading..."
+  },
+  "ourWork": {
+    "subtitle": "Our Works",
+    "title": "Excellence from concept to completion",
+    "allPortfolio": "All portfolio",
+    "mockDescription": "Developing result-oriented and innovative digital solutions for your business from scratch."
+  }
+}

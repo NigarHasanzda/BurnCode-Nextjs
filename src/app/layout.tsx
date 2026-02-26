@@ -1,4 +1,5 @@
 // src/app/layout.tsx
+import CursorFollower from "@/crusorfollower/CrusorFollower";
 import "./globals.css";
 
 export default function RootLayout({
@@ -9,6 +10,7 @@ export default function RootLayout({
   return (
     <html lang="az">
       <body suppressHydrationWarning>
+        <CursorFollower />
         {children}
       </body>
     </html>

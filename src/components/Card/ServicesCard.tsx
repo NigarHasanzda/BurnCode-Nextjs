@@ -9,7 +9,7 @@ interface ServiceCardProps {
   image: string;
   slug: string;
   lang: string;
-  bgColor?: string; // opsional, default olacaq
+  bgColor?: string; 
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ name, description, image, slug, lang, bgColor }) => {
@@ -19,13 +19,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ name, description, image, slu
       style={{ backgroundColor: bgColor || "#ffffff" }}
     >
       <div className="p-5">
-        {/* Header with Arrow */}
         <div className="flex items-center justify-between border-b border-[#e5e7eb] pb-[25px] mb-[25px]">
           <h2 className="text-[24px] font-[500] text-[#1e1e2f] w-full max-w-[200px] capitalize leading-tight">
             {name}
           </h2>
           <Link
-            href={`/${lang}/services/${slug}`}
+            href={`/${lang}/service/${slug}`}
             className="bg-[#5e5ce6] text-white rounded-full flex items-center justify-center w-[60px] h-[60px] shrink-0"
           >
             <img
@@ -40,8 +39,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ name, description, image, slu
           {description}
         </p>
       </div>
-
-      {/* Image */}
       <div className="rounded-[30px] overflow-hidden">
         <figure className="m-0 overflow-hidden">
           <img

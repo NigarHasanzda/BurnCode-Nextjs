@@ -1,37 +1,33 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 import ServiceCard from "@/components/Card/ServicesCard";
 import { fetchServices } from "@/services/Services";
 import { Service } from "@/types/services";
 
 const ServicePage: React.FC = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+const params = useParams();
+const lang = (params.lang || "az") as string; // ✅ TypeScript indi bilir ki, həmişə stringdir
 
-  const langParam = searchParams.get("lang");
-  const selectedLang = langParam || "az";
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [posts, setPosts] = useState<Service[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  console.log(posts)
-  // API-dən dataları çəkirik
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      const data = await fetchServices(selectedLang);
-      setPosts(data);
+      const data = await fetchServices(lang); // ✅ lang həmişə string
+      setServices(data);
       setLoading(false);
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     loadData();
-  }, [selectedLang]);
+  }, [lang]);
 
   const handleNavigation = (slug: string) => {
-    router.push(`/${selectedLang}/service/${slug}`);
+    router.push(`/${lang}/service/${slug}`);
   };
 
   if (loading) {
@@ -43,23 +39,22 @@ const ServicePage: React.FC = () => {
   }
 
   return (
-    <div className="latest-news bg-[#F7F8FD] our-blog py-[80px] sm:py-[100px]">
+    <section className="bg-[#F7F8FD] py-[80px] sm:py-[100px]">
       <div className="container mx-auto px-5 sm:px-6 lg:px-26">
-        {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-          {posts.length > 0 ? (
-            posts.map((post) => (
+          {services.length > 0 ? (
+            services.map((service) => (
               <div
-                key={post.id}
+                key={service.id}
                 className="cursor-pointer"
-                onClick={() => handleNavigation(post.slug)}
+                onClick={() => handleNavigation(service.slug)}
               >
                 <ServiceCard
-                  name={post.name}
-                  image={post.image}
-                  description={post.description}
-                  slug={post.slug}
-                  lang={selectedLang}
+                  name={service.name}
+                  image={service.image}
+                  description={service.description}
+                  slug={service.slug}
+                  lang={lang}
                   bgColor="#ffffff"
                 />
               </div>
@@ -71,7 +66,7 @@ const ServicePage: React.FC = () => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

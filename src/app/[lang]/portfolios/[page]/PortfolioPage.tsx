@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
 import PortfolioCard from "@/components/Card/PortfolioCard";
-import { Project, ProjectResponse } from "@/types/portfolio";
+import { Project, ProjectsResponse } from "@/types/portfolio";
 import { getPortfolioCategories, getProjects } from "@/services/PortfolioService";
 import Pagination from "@/Pagination/Paginations";
 
@@ -26,7 +26,7 @@ export default function PortfolioPage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res: ProjectResponse = await getProjects(lang as string, currentPage);
+        const res: ProjectsResponse = await getProjects(lang as string, currentPage);
         setProjects(res.items || []);
         setTotalPages(res.meta?.last_page || 1);
       } catch (err) {
@@ -95,26 +95,8 @@ export default function PortfolioPage() {
         {loading && <p className="text-center text-gray-500">Yüklənir...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
 
-        {/* CARDS */}
-        {!loading && !error && filteredData.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredData.map((item) => (
-              <PortfolioCard
-                key={item.id}
-                title={item.title || "Untitled"}
-                image={item.image}
-                date={item.createdAt || ""}
-                slug={item.slug}
-                lang={lang as string}
-              />
-            ))}
-          </div>
-        ) : (
-          !loading && !error && (
-            <p className="text-center text-gray-500">Bu kateqoriyada layihə yoxdur.</p>
-          )
-        )}
 
+   
         {/* PAGINATION */}
         {totalPages > 1 && (
           <div className="mt-12">
