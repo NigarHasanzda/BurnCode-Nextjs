@@ -39,10 +39,10 @@ export default function BlogCard({
       </div>
 
       {/* Content Section */}
-      <div className="pt-8 pb-4 px-8 flex flex-col gap-3">
+      <div className="pt-8 pb-4 px-4 flex flex-col gap-3">
         
         {/* Date - Şəkildəki kiçik və boz tonlu tarix */}
-        <div className="flex items-center gap-2 text-[#1A1C20]">
+        <div className="flex items-center gap-2 text-[#1a1c20cb]">
           <CalendarMonthIcon sx={{ fontSize: 16, color: "#1A1C20" }} />
           <span className="text-[15px] font-medium opacity-90">
             {created_at}
@@ -50,7 +50,7 @@ export default function BlogCard({
         </div>
 
         {/* Title - Şəkildəki qalınlıq və sətir arası məsafə */}
-        <h2 className="text-[#1A1C20] text-[23px] font-[500] leading-[1.3] tracking-tight transition-colors duration-300 ">
+        <h2 className="text-[#1A1C20] text-[22px] font-[500] leading-[1.3] tracking-tight transition-colors duration-300 ">
           {title}
         </h2>
       </div>

@@ -22,13 +22,13 @@ export default function PortfolioCard({
   const altText = title || "Portfolio Project Image";
 
   return (
-    <div className="border rounded-[40px] overflow-hidden shadow-md hover:shadow-lg transition">
+    <div className="border-none rounded-[40px] overflow-hidden shadow-md hover:shadow-lg transition">
       {/* Image */}
       <div className="relative w-full h-[250px] md:h-[200px] lg:h-[220px]">
         {image ? (
           <Image
             src={image}
-            alt={altText} // <- burada artıq həmişə string olacaq
+            alt={altText}
             fill
             className="object-cover"
           />

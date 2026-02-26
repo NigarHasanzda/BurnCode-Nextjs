@@ -37,5 +37,17 @@
     "title": "Excellence from concept to completion",
     "allPortfolio": "All portfolio",
     "mockDescription": "Developing result-oriented and innovative digital solutions for your business from scratch."
+  },
+  
+  "header": {
+    "nav": {
+      "home": "Home",
+      "services": "Services",
+      "portfolio": "Portfolio",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "dashboard": "Dashboard"
   }
+
 }

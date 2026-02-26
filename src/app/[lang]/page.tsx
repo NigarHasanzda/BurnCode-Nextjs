@@ -29,7 +29,7 @@ export default async function Home({
       <ServicesSection  />
       <OurWork />
       <WhyChooseUs />
-      {/* <LatestBlogArticle /> */}
+      <LatestBlogArticle />
     </>
   );
 }

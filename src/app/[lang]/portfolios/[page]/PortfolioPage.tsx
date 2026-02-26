@@ -1,32 +1,30 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import PortfolioCard from "@/components/Card/PortfolioCard";
 import { Project, ProjectsResponse } from "@/types/portfolio";
-import { getPortfolioCategories, getProjects } from "@/services/PortfolioService";
+import { getProjects } from "@/services/PortfolioService";
 import Pagination from "@/Pagination/Paginations";
 
-const ITEMS_PER_PAGE = 6;
-
 export default function PortfolioPage() {
-  const { lang, page } = useParams();
+  const params = useParams();
   const router = useRouter();
-  const currentPage = Number(page) || 1;
+
+  const lang = params?.lang as string;
+  const currentPage = Number(params?.page) || 1;
 
   const [projects, setProjects] = useState<Project[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<string>("*");
 
   // ================= FETCH PROJECTS =================
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res: ProjectsResponse = await getProjects(lang as string, currentPage);
+        const res: ProjectsResponse = await getProjects(lang, currentPage);
         setProjects(res.items || []);
         setTotalPages(res.meta?.last_page || 1);
       } catch (err) {
@@ -35,71 +33,61 @@ export default function PortfolioPage() {
         setLoading(false);
       }
     };
-    fetchData();
+
+    if (lang) fetchData();
   }, [lang, currentPage]);
 
-  // ================= FETCH CATEGORIES =================
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const cats = await getPortfolioCategories(lang as string);
-        setCategories(["*", ...cats]); // All üçün "*"
-      } catch (err) {
-        console.error("Kateqoriyalar gətirilərkən xəta:", err);
-      }
-    };
-    fetchCategories();
-  }, [lang]);
-
-  // ================= FILTER =================
-  const filteredData = useMemo(() => {
-    if (activeFilter === "*") return projects;
-   console.log("Active Filter:", activeFilter, "Projects:", projects); // Debug üçün əlavə edildi
-  }, [activeFilter, projects]);
-
-  // ================= HANDLERS =================
+  // ================= PAGE CHANGE =================
   const handlePageChange = (page: number) => {
     if (page === currentPage) return;
-    router.push(`/${lang}/portfolio/${page}`);
-  };
-
-  const handleFilterClick = (filter: string) => {
-    setActiveFilter(filter);
-    router.push(`/${lang}/portfolio/1`);
+    router.push(`/${lang}/portfolios/${page}`);
   };
 
   // ================= RENDER =================
   return (
-    <section className="py-24">
-      <div className="container mx-auto px-4">
+    <section className="py-16 sm:py-20 lg:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-20 xl:px-29">
 
-        {/* FILTER */}
-        <div className="flex justify-center flex-wrap gap-4 mb-12">
-          {categories.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => handleFilterClick(filter)}
-              className={`px-6 py-3 rounded-full font-semibold transition
-              ${
-                activeFilter === filter
-                  ? "bg-[#5D56F1] text-white"
-                  : "bg-gray-200 hover:bg-[#5D56F1] hover:text-white"
-              }`}
-            >
-              {filter === "*" ? "All" : filter}
-            </button>
-          ))}
-        </div>
+        {/* LOADING */}
+        {loading && (
+          <p className="text-center text-gray-500 py-10">
+            Yüklənir...
+          </p>
+        )}
 
-        {/* LOADING / ERROR */}
-        {loading && <p className="text-center text-gray-500">Yüklənir...</p>}
-        {error && <p className="text-center text-red-500">{error}</p>}
+        {/* ERROR */}
+        {error && (
+          <p className="text-center text-red-500 py-10">
+            {error}
+          </p>
+        )}
 
+        {/* PROJECT GRID */}
+        {!loading && !error && projects.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+            {projects.map((project) => (
+              <PortfolioCard
+                key={project.id}
+                title={project.title}
+                image={project.image}
+                date={project.createdAt || ""}
+                slug={project.slug}
+                lang={lang}
+              />
+            ))}
+          </div>
+        )}
 
-   
+        {/* NO DATA */}
+        {!loading && !error && projects.length === 0 && (
+          <p className="text-center text-gray-500 py-10">
+            Heç bir layihə tapılmadı.
+          </p>
+        )}
+
         {/* PAGINATION */}
-        {totalPages > 1 && (
-          <div className="mt-12">
+        {!loading && totalPages > 1 && (
+          <div className="mt-14 flex justify-center">
             <Pagination
               currentPage={currentPage}
               lastPage={totalPages}
@@ -107,6 +95,7 @@ export default function PortfolioPage() {
             />
           </div>
         )}
+
       </div>
     </section>
   );

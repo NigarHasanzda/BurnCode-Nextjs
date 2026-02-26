@@ -16,7 +16,7 @@ export const getProjects = async (
     id: item.id,
     title: item.name || item.title || "Başlıq yoxdur",
     image: item.image,
-    category: item.category || "general",
+    // category: item.category || "general",
     createdAt: item.created_at || "",
     slug: item.slug,
     client: item.client_info || "",

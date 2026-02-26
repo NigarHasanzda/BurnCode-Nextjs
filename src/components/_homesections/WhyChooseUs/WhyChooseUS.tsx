@@ -23,9 +23,7 @@ const WhyChooseUs = () => {
 
   return (
     <section className="bg-[#F7F8FD] py-[100px] px-0">
-      <div className="max-w-[68%] mx-auto px-4">
-        
-        {/* Üst Başlıq Hissəsi */}
+      <div className="max-w-[70%] mx-auto px-4">
         <div className="flex flex-wrap items-center mb-12">
           <div className="w-full lg:w-8/12 md:w-full px-3">
             <div className="space-y-2">
@@ -40,14 +38,14 @@ const WhyChooseUs = () => {
         </div>
 
         {/* 3-lü Kart Sırası */}
-        <div className="flex flex-wrap -mx-3 mb-8">
+        <div className="flex flex-wrap -mx-3 -mb-4">
           {mockItems.map((item, index) => (
-            <div key={index} className="w-full lg:w-1/3 md:w-1/2 px-3 mb-8">
-              <div className="bg-white rounded-[40px] p-10 h-[calc(100%-30px)] transition-all duration-300 hover:shadow-sm">
-                <div className="mb-[30px]">
-                  <img src={item.icon} alt={item.title} className="w-16 h-16 object-contain" />
+            <div key={index} className="w-full lg:w-1/3 md:w-1/2 px-3 py-3  mb-8">
+              <div className="bg-white rounded-[40px] py-12 px-8 pb-20 h-[calc(100%-30px)] transition-all duration-300 hover:shadow-sm">
+                <div className="mb-[20px]">
+                  <img src={item.icon} alt={item.title} className="w-20 h-20 object-contain" />
                 </div>
-                <h3 className="text-[26px] font-bold text-[#1e1e2f] capitalize mb-5">
+                <h3 className="text-[26px] font-bold text-[#1e1e2f] capitalize mb-4">
                   {item.title}
                 </h3>
                 <p className="text-[#666] m-0 leading-relaxed text-[16px]">
@@ -60,16 +58,16 @@ const WhyChooseUs = () => {
 
         {/* Explore Alt Kartı */}
         <div className="w-full ">
-          <div className="relative bg-white rounded-[40px] p-[70px] overflow-hidden">
+          <div className="relative bg-white rounded-[40px] py-[100px] pt-[120px] px-[80px] overflow-hidden">
             
             {/* Sağ Üstdəki İkon */}
             <div className="absolute top-[70px] right-[70px] hidden lg:block">
-              <img src="/icon-whyus-4.svg" alt="Explore Icon" className="w-20 h-20" />
+              <img src="/icon-whyus-4.svg" alt="Explore Icon" className="w-16 h-16" />
             </div>
 
             <div className="flex flex-wrap mb-[60px]">
               <div className="w-full lg:w-10/12">
-                <h2 className="text-[42px] font-bold text-[#1e1e2f] leading-tight max-w-[800px]">
+                <h2 className="text-[42px] font-bold text-[#5D56F1] leading-tight max-w-[800px]">
                   {t.readyExplore}
                 </h2>
               </div>

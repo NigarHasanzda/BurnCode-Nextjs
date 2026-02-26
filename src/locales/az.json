@@ -36,5 +36,17 @@
     "title": "Hazırladığımız layihələrlə tanış olun",
     "allPortfolio": "Bütün layihələr",
     "mockDescription": "Biznesiniz üçün nəticəyönümlü və innovativ rəqəmsal həllərin hazırlanması prosesi."
+  },
+  
+  "header": {
+    "nav": {
+      "home": "Ana Səhifə",
+      "services": "Xidmətlər",
+      "portfolio": "Portfolio",
+      "blog": "Bloq",
+      "contact": "Əlaqə"
+    },
+    "dashboard": "Panel"
   }
 }
+

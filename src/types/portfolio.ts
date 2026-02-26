@@ -4,7 +4,7 @@ export interface Project {
   title: string;
   description: string;
   image: string;
-  categories: string;
+//   categories: string;
   createdAt: string;
   slug: string;
 }
