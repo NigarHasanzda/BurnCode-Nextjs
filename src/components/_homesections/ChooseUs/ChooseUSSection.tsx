@@ -9,6 +9,8 @@ import { useParams } from 'next/navigation';
 import az from "@/locales/az.json";
 import en from "@/locales/en.json";
 import ru from "@/locales/ru.json";
+import FadeInLeftWhenVisible from '../../../FadeInWhenVisible/FadeInLeftWhenVisible';
+import FadeInRightWhenVisible from '@/FadeInWhenVisible/FadeInWhenVisible';
 
 const ChooseUsSection = () => {
   const { lang } = useParams();
@@ -30,24 +32,28 @@ const ChooseUsSection = () => {
     <section className="py-14 md:py-20 px-4 sm:px-6 max-w-[1400px] mx-auto font-sans bg-white">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 mb-10 md:mb-14 md:ml-[30px] text-center md:text-left">
-        <h2 className="text-[26px] sm:text-[32px] md:text-[42px] font-bold text-[#1a1a2e] tracking-tight leading-tight">
+      <div className="flex flex-col md:w-[70%] md:flex-row items-center gap-3 md:gap-4 mb-10 md:mb-14 md:ml-[30px] text-center md:text-left">
+       <FadeInLeftWhenVisible>
+         <h2 className="text-[26px] sm:text-[32px] md:text-[42px]  font-semibold text-[#1a1a2e] tracking-tight leading-tight">
           {t.title}
         </h2>
+       </FadeInLeftWhenVisible>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-34 items-start relative">
         
-        {/* Image Block (Heç bir CSS dəyişmədi) */}
+
         <div className="relative w-full lg:w-[41%]">
           <div className="rounded-[3rem] md:ml-[30px] overflow-hidden shadow-sm relative group">
-            <Image 
+            <FadeInLeftWhenVisible>
+              <Image 
               src="/page-about-1.jpg" 
               alt="Team working" 
               width={700} 
               height={600}
               className="object-cover w-full h-[380px] sm:h-[450px] lg:h-[560px]"
             />
+            </FadeInLeftWhenVisible>
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
               <span className="absolute w-[2px] h-full bg-white opacity-30 animate-slide1"></span>
               <span className="absolute w-[2px] h-full bg-white opacity-20 animate-slide2"></span>
@@ -72,7 +78,8 @@ const ChooseUsSection = () => {
 
         {/* Content Section */}
         <div className="w-full lg:w-[46%] py-8 md:py-[60px]">
-          <div className="space-y-6 text-[#4a4a68] leading-[1.6] text-[15px] md:text-[16px] mb-6">
+          <FadeInRightWhenVisible>
+            <div className="space-y-6 text-[#4a4a68] leading-[1.6] text-[15px] md:text-[16px] mb-6">
             {/* HTML teqlərini (span) oxumaq üçün dangerouslySetInnerHTML istifadə edirik */}
             <p dangerouslySetInnerHTML={{ __html: t.description1 }} />
             <p>{t.description2}</p>
@@ -94,8 +101,9 @@ const ChooseUsSection = () => {
 
           {/* Button - Cari dilə uyğun linklə */}
           <div className="inline-block">
-            <PrimaryButton text={t.button} path={`/${lang}/consultation`} />
+            <PrimaryButton text={t.button} path={`/contact`} />
           </div>
+          </FadeInRightWhenVisible>
         </div>
 
       </div>
