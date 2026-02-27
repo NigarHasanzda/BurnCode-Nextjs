@@ -48,6 +48,21 @@
       "contact": "Contact"
     },
     "dashboard": "Dashboard"
+  },
+  "footer": {
+    "description": "Burncode company has been serving its customers for more than 5 years. During this period, we have implemented a number of small and large projects. We offer you quality work and a reasonable price.",
+    "pagesTitle": "Pages",
+    "socialsTitle": "Socials",
+    "links": {
+      "home": "Home",
+      "services": "Services",
+      "portfolio": "Portfolio",
+      "contact": "Contact Us"
+    },
+    "copyright": "Copyright © 2026 BurnCode. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms Of Service",
+    "goToTop": "Go To Top"
   }
 
 }
