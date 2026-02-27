@@ -9,7 +9,7 @@ import { Service } from "@/types/services";
 const ServicePage: React.FC = () => {
   const router = useRouter();
 const params = useParams();
-const lang = (params.lang || "az") as string; // ✅ TypeScript indi bilir ki, həmişə stringdir
+const lang = (params.lang || "az") as string; 
 
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
