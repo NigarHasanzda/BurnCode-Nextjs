@@ -64,5 +64,28 @@
     "terms": "Terms Of Service",
     "goToTop": "Go To Top"
   }
-
+,
+"whyBurncode": "Why Burncode",
+  "discoverTrust": "Discover the reasons to trust our expertise",
+  "readyExplore": "Ready to explore our digital universe?",
+  "transformIdeas": "At BurnCode, we transform ideas into high-quality digital solutions. From concept to execution, our team ensures your project stands out, engages users, and achieves real results.",
+  "connectLinkedIn": "LinkedIn",
+  "connectInstagram": "Instagram",
+  "mockItems": [
+    { "title": "Innovation at Core", "desc": "We stay ahead of the curve by implementing the latest technologies." },
+    { "title": "Quality Driven", "desc": "Our rigorous testing ensures we deliver high-performance products." },
+    { "title": "Maximum Value", "desc": "We optimize processes to deliver premium results for your investment." }
+  ],
+  "latestBlog": {
+    "subtitle": "LATEST BLOGS & ARTICLES",
+    "title": "The latest insights you need to know",
+    "viewAll": "View All Articles"
+  },
+  "sidebar": {
+    "home": "Home",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "contact": "Contact"
+  }
 }

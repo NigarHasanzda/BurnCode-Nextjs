@@ -8,7 +8,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LanguageSelector from "../LanguageButton/SeelectLanguage";
-import { usePathname } from "next/navigation";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -17,23 +16,40 @@ interface SidebarProps {
   currentLang: string;
 }
 
-const iconMap: { [key: string]: React.ReactNode } = {
-  Home: <HomeIcon sx={{ fontSize: 23, color: "#5D56F1" }} />,
-  Services: <MiscellaneousServicesIcon sx={{ fontSize: 23, color: "#5D56F1" }} />,
-  Portfolio: <ShoppingCartIcon sx={{ fontSize: 23, color: "#5D56F1" }} />,
-  Blog: <DescriptionIcon sx={{ fontSize: 23, color: "#5D56F1" }} />,
-  Contact: <ContactMailIcon sx={{ fontSize: 22, color: "#5D56F1" }} />,
-};
-
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, links, onClose, currentLang }) => {
-  const pathname = usePathname();
+  
+  // İkonu seçmək üçün funksiya yaradırıq
+  const getIcon = (path: string, name: string) => {
+    const p = path.toLowerCase();
+    const n = name.toLowerCase();
+    const iconStyle = { fontSize: 23, color: "#5D56F1" };
+
+    // Əgər path və ya name daxilində bu sözlər keçirsə ikonu qaytar
+    if (p === "/" || p === `/${currentLang}` || n.includes("ana") || n.includes("home")) 
+      return <HomeIcon sx={iconStyle} />;
+    
+    if (p.includes("service") || n.includes("xidmət") || n.includes("service")) 
+      return <MiscellaneousServicesIcon sx={iconStyle} />;
+    
+    if (p.includes("portfolios") || n.includes("portfolios") || n.includes("layihə")) 
+      return <ShoppingCartIcon sx={iconStyle} />;
+    
+    if (p.includes("blog") || n.includes("blog") || n.includes("məqalə")) 
+      return <DescriptionIcon sx={iconStyle} />;
+    
+    if (p.includes("contact") || n.includes("əlaqə") || n.includes("contact")) 
+      return <ContactMailIcon sx={{ ...iconStyle, fontSize: 22 }} />;
+
+    // Heç biri tapılmasa standart bir ikon göstər (opsional)
+    return <HomeIcon sx={iconStyle} />;
+  };
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
           <motion.div
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 cursor-pointer"
+            className="fixed inset-0 bg-black/20  z-40 cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -46,21 +62,23 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, links, onClose, currentLang }
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
           >
-            <nav className="flex flex-col gap-6 mt-4">
-              {links.map((link) => (
+            <nav className="flex flex-col gap-6 mt-10">
+              {links.map((link, index) => (
                 <Link
-                  key={link.name}
+                  key={index}
                   href={`/${currentLang}${link.path}`}
                   className="flex items-center gap-3 text-[15px] font-semibold text-[#646464] hover:text-[#635BFF] transition-all duration-300 transform hover:translate-x-2"
                   onClick={onClose}
                 >
-                  {iconMap[link.name]}
+                  <span className="flex items-center justify-center w-6 h-6">
+                    {getIcon(link.path, link.name)}
+                  </span>
                   {link.name}
                 </Link>
               ))}
             </nav>
 
-            <div className="mx-auto mt-6 -ml-2">
+            <div className="mx-auto mt-10 -ml-2">
               <LanguageSelector currentLang={currentLang} />
             </div>
           </motion.div>

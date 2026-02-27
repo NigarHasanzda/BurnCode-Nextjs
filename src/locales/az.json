@@ -14,7 +14,7 @@
     "title": "🚀 Niyə proqram təminatının hazırlanmasında bizi seçməlisiniz?",
     "description1": "<span class=\"font-semibold text-[#1a1a2e]\">Burncode</span>-da biz sadəcə proqram təminatı hazırlamırıq — biz nəticə verən güclü rəqəmsal həllər yaradırıq. MVP hazırlamaq istəyən startaplardan tutmuş, köhnə sistemlərini müasirləşdirən böyük müəssisələrə qədər biz sizin etibarlı innovasiya tərəfdaşınızıq.",
     "description2": "Biz funksional, miqyaslana bilən və istifadəçi dostu həllər təqdim etmək üçün qabaqcıl texnologiyaları, yüksək təhlükəsizlik standartlarını və istifadəçi davranışını dərindən başa düşməyi birləşdiririk. İdeyadan icraya qədər biz sizin vizyonunuzu bazara hazır məhsula çevirmək üçün strategiya, istedad və ehtirasımızı bir araya gətiririk. 🚀 Gəlin gələcəyi birlikdə quraq — hər dəfə bir sətir kodla.",
-    "button": "Pulsuz Konsultasiya",
+    "button": "Bizimlə Əlaqə",
     "features": {
       "scalability": "Asan miqyaslanma",
       "impact": "Dərhal təsir",
@@ -62,6 +62,31 @@
   "privacy": "Məxfilik siyasəti",
   "terms": "Xidmət şərtləri",
   "goToTop": "Yuxarı qalx"
-}
+},
+
+  "whyBurncode": "Niyə Burncode",
+  "discoverTrust": "Təcrübəmizə etibar etməyiniz üçün səbəbləri kəşf edin",
+  "readyExplore": "Rəqəmsal kainatımızı kəşf etməyə hazırsınız?",
+  "transformIdeas": "BurnCode-da ideyaları yüksək keyfiyyətli rəqəmsal həllərə çeviririk. Konsepsiyadan icraya qədər komandamız layihənizin fərqlənməsini, istifadəçiləri cəlb etməsini və real nəticələr əldə etməsini təmin edir.",
+  "connectLinkedIn": "LinkedIn",
+  "connectInstagram": "Instagram",
+  "mockItems": [
+    { "title": "Mərkəzdə İnnovasiya", "desc": "Ən son texnologiyaları tətbiq edərək hər zaman bir addım öndə oluruq." },
+    { "title": "Keyfiyyət Yönümlü", "desc": "Ciddi sınaqlarımız yüksək performanslı məhsullar təqdim etməyimizi təmin edir." },
+    { "title": "Maksimum Dəyər", "desc": "İnvestisiyanız üçün mükafat nəticələr əldə etmək üçün prosesləri optimallaşdırırıq." }
+  ],
+  "latestBlog": {
+    "subtitle": "SON BLOQLAR VƏ MƏQALƏLƏR",
+    "title": "Texnoloji yenilikləri bizimlə kəşf edin",
+    "viewAll": "Bütün məqalələrə bax"
+  },
+  "sidebar": {
+    "home": "Ana Səhifə",
+    "services": "Xidmətlər",
+    "portfolio": "Portfolio",
+    "blog": "Bloq",
+    "contact": "Əlaqə"
+  }
+
 }
 

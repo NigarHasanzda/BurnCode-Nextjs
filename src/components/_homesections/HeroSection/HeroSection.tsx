@@ -46,8 +46,8 @@ export default function Hero() {
 
         <FadeInFromBottom>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <PrimaryButton text={t.button1} path="/consultation" />
-            <PrimaryButton text={t.button2} path="/portfolio/1" />
+            <PrimaryButton text={t.button1} path="/contact" />
+            <PrimaryButton text={t.button2} path="/portfolios/1" />
           </div>
         </FadeInFromBottom>
       </div>
