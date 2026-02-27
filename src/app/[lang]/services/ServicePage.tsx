@@ -5,11 +5,12 @@ import { useRouter, useParams } from "next/navigation";
 import ServiceCard from "@/components/Card/ServicesCard";
 import { fetchServices } from "@/services/Services";
 import { Service } from "@/types/services";
+import CardSkeleton from "@/components/LoadingSkeleton/ThreeLOadingCard";
 
 const ServicePage: React.FC = () => {
   const router = useRouter();
-const params = useParams();
-const lang = (params.lang || "az") as string; 
+  const params = useParams();
+  const lang = (params.lang || "az") as string;
 
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
@@ -30,17 +31,14 @@ const lang = (params.lang || "az") as string;
     router.push(`/${lang}/service/${slug}`);
   };
 
-  if (loading) {
-    return (
-      <div className="py-20 text-center text-gray-500">
-        Yüklənir...
-      </div>
-    );
-  }
 
-  return (
-    <section className="bg-[#F7F8FD] py-[80px] sm:py-[100px]">
-      <div className="container mx-auto px-5 sm:px-6 lg:px-26">
+
+return (
+  <section className="bg-[#F7F8FD] py-[80px] sm:py-[100px]">
+    <div className="container mx-auto px-5 sm:px-6 lg:px-26">
+      {loading ? (
+        <CardSkeleton />
+      ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           {services.length > 0 ? (
             services.map((service) => (
@@ -65,9 +63,10 @@ const lang = (params.lang || "az") as string;
             </div>
           )}
         </div>
-      </div>
-    </section>
-  );
+      )}
+    </div>
+  </section>
+);
 };
 
 export default ServicePage;

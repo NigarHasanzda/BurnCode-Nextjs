@@ -7,6 +7,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PrimaryButton from "@/components/Button/Button";
 import { fetchServices } from "@/services/Services";
 import { Service } from "@/types/services";
+import SingleSkeleton from "@/components/LoadingSkeleton/SingleLoading";
 
 const Page = () => {
     const params = useParams();
@@ -45,7 +46,7 @@ const features = [
     }, [slug, lang]);
 
     if (loading) {
-        return <div className="text-center py-20">Yüklənir...</div>;
+        return <SingleSkeleton/>;
     }
 
     if (!service) {

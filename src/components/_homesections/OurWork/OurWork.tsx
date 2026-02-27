@@ -11,6 +11,8 @@ import en from "@/locales/en.json";
 import ru from "@/locales/ru.json";
 import Link from 'next/link';
 import SingleSkeleton from '@/components/LoadingSkeleton/SingleLoading';
+import FadeInLeftWhenVisible from '@/FadeInWhenVisible/FadeInLeftWhenVisible';
+import FadeInRightWhenVisible from '@/FadeInWhenVisible/FadeInWhenVisible';
 
 // Skeleton
 
@@ -46,20 +48,24 @@ const OurWork = () => {
         <div className="flex flex-wrap items-center mb-12">
           <div className="w-full md:w-9/12 lg:w-8/12 text-center md:text-left">
             <div className="mb-4">
-              <span className="block text-[#5e5ce6] font-semibold mb-2 uppercase tracking-widest text-sm">
+              <FadeInLeftWhenVisible>
+                <span className="block text-[#5e5ce6] font-semibold mb-2 uppercase tracking-widest text-sm">
                 {t.subtitle}
               </span>
               <h2 className="text-[32px] md:text-[42px] font-bold text-[#1e1e2f] leading-tight">
                 {t.title}
               </h2>
+              </FadeInLeftWhenVisible>
             </div>
           </div>
           
           <div className="w-full md:w-3/12 lg:w-4/12 flex justify-center md:justify-end mt-4 md:mt-0">
-            <PrimaryButton 
+            <FadeInRightWhenVisible>
+              <PrimaryButton 
               text={t.allPortfolio} 
               path={`/portfolios/1`} 
             />
+            </FadeInRightWhenVisible>
           </div>
         </div>
 
