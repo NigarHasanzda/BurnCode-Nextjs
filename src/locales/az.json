@@ -86,6 +86,19 @@
     "portfolio": "Portfolio",
     "blog": "Bloq",
     "contact": "Əlaqə"
+  },
+  "contact": {
+    "subtitle": "Bizimlə Əlaqə",
+    "title": "Bu gün bizimlə əlaqə saxlayın",
+    "followUs": "Bizi izləyin:",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "phone": "Telefon",
+    "email": "E-poçt",
+    "message": "Mesajınız",
+    "sendButton": "Mesaj Göndər",
+    "successMsg": "Mesaj göndərildi!",
+    "loading": "Yüklənir..."
   }
 
 }
