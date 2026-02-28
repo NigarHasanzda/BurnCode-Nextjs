@@ -11,7 +11,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { MessageService } from "@/services/SendMessage";
 import { getContactInfo } from "@/services/Contact";
 
-// JSON-ları import edirik
 import az from '../../locales/az.json';
 import en from '../../locales/en.json';
 import ru from '../../locales/ru.json';

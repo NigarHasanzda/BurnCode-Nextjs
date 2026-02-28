@@ -6,7 +6,7 @@ import Link from "next/link";
 interface PortfolioCardProps {
   title: string;
   image: string;
-  date: string;
+  description: string; // Şəkildə qısa təsvir (description) var, date yox
   slug: string;
   lang: string;
 }
@@ -14,46 +14,49 @@ interface PortfolioCardProps {
 export default function PortfolioCard({
   title,
   image,
-  date,
+  description,
   slug,
   lang,
 }: PortfolioCardProps) {
-  // Alt text default dəyər
-  const altText = title || "Portfolio Project Image";
-
   return (
-    <div className="border-none rounded-[40px] overflow-hidden shadow-md hover:shadow-lg transition">
-      {/* Image */}
-      <div className="relative w-full h-[250px] md:h-[200px] lg:h-[220px]">
+    <div className="group flex flex-col bg-transparent">
+      {/* Şəkil Konteyneri - Şəkildəki kimi açıq boz/mavi fon və böyük yuvarlaqlıq */}
+      <div className="relative flex flex-col w-full aspect-[1.4/1] bg-[#F8F9FD] rounded-[40px] p-8 flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:shadow-sm">
         {image ? (
-          <Image
-            src={image}
-            alt={altText}
-            fill
-            className="object-cover"
-          />
-        ) : (
-          <div className="bg-gray-200 w-full h-full flex items-center justify-center">
-            <span className="text-gray-500">Şəkil yoxdur</span>
+          <div className="relative w-full h-full rounded-[20px] overflow-hidden shadow-2xl shadow-gray-200">
+             <Image
+              src={image}
+              alt={title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
           </div>
+        ) : (
+          <div className="text-gray-400">Şəkil yoxdur</div>
         )}
-      </div>
+      <div className="mt-8 px-2">
+        <h3 className="text-[28px] font-bold text-[#1A1C20] mb-4">
+          {title}
+        </h3>
+        
+        <p className="text-[#52525B] text-[18px] leading-relaxed mb-6 line-clamp-3">
+          {description}
+        </p>
 
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-gray-500 text-sm mb-4">{date}</p>
-
-        {/* Link */}
+        {/* Link - Şəkildə link görünmür amma funksionallıq üçün saxlayırıq */}
         {slug && (
           <Link
             href={`/${lang}/portfolio/${slug}`}
-            className="text-[#635BFF] font-medium hover:underline"
+            className="inline-flex items-center text-[#5D56F1] font-semibold text-lg hover:gap-2 transition-all"
           >
-            Layihəyə bax
+            Daha ətraflı 
+            <span className="ml-2">→</span>
           </Link>
         )}
       </div>
+      </div>
+
+      {/* Mətn Hissəsi */}
     </div>
   );
 }

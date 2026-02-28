@@ -26,8 +26,12 @@ export interface BlogResponse {
     total: number;
   };
 }
-export interface Category {
+export interface BlogCategory {
   id: number;
   name: string;
   slug: string;
+}
+
+export interface BlogCategoriesResponse {
+  data: BlogCategory[];
 }

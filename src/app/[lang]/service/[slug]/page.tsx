@@ -8,6 +8,7 @@ import PrimaryButton from "@/components/Button/Button";
 import { fetchServices } from "@/services/Services";
 import { Service } from "@/types/services";
 import SingleSkeleton from "@/components/LoadingSkeleton/SingleLoading";
+import { getBlogCategories } from "@/services/BlogService";
 
 const Page = () => {
     const params = useParams();
@@ -25,6 +26,7 @@ const features = [
                 "Fast Load Time",
                 "Easy Back-End Admin Panel"
             ]
+
 
 
     useEffect(() => {
