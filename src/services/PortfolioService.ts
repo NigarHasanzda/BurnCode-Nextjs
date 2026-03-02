@@ -1,9 +1,14 @@
 // services/PortfolioService.ts
 import api from "@/lib/api";
+import { Project, ProjectsResponse, SinglePortfolioPayload, SinglePortfolioResponse } from "@/types/portfolio";
 
-// Mövcud getProjects funksiyası burada qalır
-import { Project, ProjectsResponse } from "@/types/portfolio";
 
+interface PortfolioPaginationParams {
+  page?: number;
+  category_id?: number | null;
+  lang?: string;
+}
+// Mövcud getProjects funksiyası (category olmadan)
 export const getProjects = async (
   lang: string,
   page: number = 1
@@ -16,7 +21,6 @@ export const getProjects = async (
     id: item.id,
     title: item.name || item.title || "Başlıq yoxdur",
     image: item.image,
-    // category: item.category || "general",
     createdAt: item.created_at || "",
     slug: item.slug,
     client: item.client_info || "",
@@ -28,15 +32,59 @@ export const getProjects = async (
   return { items, meta: { last_page: res.data.meta?.last_page || 1 } };
 };
 
-
-
 // Yeni funksiya: portfolio kateqoriyaları gətirir
-export const getPortfolioCategories = async (lang: string): Promise<string[]> => {
+export const getPortfolioCategories = async (lang: string): Promise<{id: number, name: string, slug: string}[]> => {
   const res = await api.get(`/projects/categories`, {
     headers: { "Accept-Language": lang },
   });
 
-  // backend array və ya object qaytara bilər, biz sadəcə string array kimi götürürük
-  const categories: string[] = res.data.data.map((item: any) => item.name || item.title || "general");
-  return categories;
+  // Backend array və ya object qaytara bilər
+  return res.data.data.map((item: any) => ({
+    id: item.id,
+    name: item.name || item.title || "general",
+    slug: item.slug || item.name?.toLowerCase().replace(/\s+/g, "-") || "general",
+  }));
+};
+
+// Yeni funksiya: category ilə portfolioları gətirir
+export const getPortfolioWithCategories = async (
+  page: number,
+  lang: string,
+  categoryId?: number
+) => {
+  let url = `/projects?page=${page}&lang=${lang}`;
+
+  if (categoryId) {
+    url += `&category_id=${categoryId}`;
+  }
+
+  const res = await api.get(url, {
+    headers: { "Accept-Language": lang },
+  });
+
+  // res.data.data və res.data.meta olacağını gözləyirik
+  return {
+    data: res.data.data,
+    meta: {
+      last_page: res.data.meta?.last_page || 1,
+    },
+  };
+};
+
+
+
+
+export const getSinglePortfolio = async (
+  payload: SinglePortfolioPayload
+): Promise<Project> => {
+  try {
+    const response = await api.post<SinglePortfolioResponse>(
+      "/projects/singleProject",
+      payload
+    );
+
+    return response.data.data; // API formatı: { data: {...} }
+  } catch (error: any) {
+    throw error.response?.data || error.message;
+  }
 };

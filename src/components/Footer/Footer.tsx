@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
@@ -7,10 +7,34 @@ import { useParams } from 'next/navigation';
 import az from "@/locales/az.json";
 import en from "@/locales/en.json";
 import ru from "@/locales/ru.json";
+import { getContactInfo } from '@/services/Contact';
+import { ContactInfo } from '@/types/contact';
 
 const Footer = () => {
     const params = useParams();
+
+    const [contact, setContact] = useState<ContactInfo | null>(null);
+
+    const [loading, setLoading] = useState(true);
+
+    console.log("Footer Contact Data:", contact);
+
     const lang = (params?.lang as string) || "az";
+
+    useEffect(() => {
+        const fetchContact = async () => {
+            try {
+                const data = await getContactInfo();
+                setContact(data);
+            } catch (err) {
+                console.error("Contact məlumatı alınmadı:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchContact();
+    }, []);
+
 
     const translations: any = { az, en, ru };
     const t = translations[lang]?.footer || en.footer;
@@ -38,7 +62,8 @@ const Footer = () => {
                     <ul className="space-y-4 text-[#9ca3af] text-m">
                         <li><Link href={`/${lang}`} className="hover:text-black transition-colors">{t.links.home}</Link></li>
                         <li><Link href={`/${lang}/services`} className="hover:text-black transition-colors">{t.links.services}</Link></li>
-                        <li><Link href={`/${lang}/portfolio/1`} className="hover:text-black transition-colors">{t.links.portfolio}</Link></li>
+                        <li><Link href={`/${lang}/portfolios/1`} className="hover:text-black transition-colors">{t.links.portfolio}</Link></li>
+                        <li><Link href={`/${lang}/blog/1`} className="hover:text-black transition-colors">{t.links.blog}</Link></li>
                         <li><Link href={`/${lang}/contact`} className="hover:text-black transition-colors">{t.links.contact}</Link></li>
                     </ul>
                 </div>
@@ -46,10 +71,10 @@ const Footer = () => {
                 <div className="md:col-span-3 lg:col-span-3">
                     <h3 className="text-[22px] font-medium mb-6">{t.socialsTitle}</h3>
                     <ul className="space-y-4 text-[#9ca3af] text-m">
-                        <li><a href="#" className="hover:text-black transition-colors">Instagram</a></li>
-                        <li><a href="#" className="hover:text-black transition-colors">Facebook</a></li>
-                        <li><a href="#" className="hover:text-black transition-colors">Twitter</a></li>
-                        <li><a href="#" className="hover:text-black transition-colors">LinkedIn</a></li>
+                        <li><a href={contact?.instagram_page || "#"} target='_blank' className="hover:text-black transition-colors">Instagram</a></li>
+                        <li><a href={contact?.facebook_page || "#"} target='_blank' className="hover:text-black transition-colors">Facebook</a></li>
+                        <li><a href={contact?.twitter_page || "#"} target='_blank' className="hover:text-black transition-colors">Twitter</a></li>
+                        <li><a href={contact?.linkedin_page || "#"} target='_blank' className="hover:text-black transition-colors">LinkedIn</a></li>
                     </ul>
                 </div>
             </div>

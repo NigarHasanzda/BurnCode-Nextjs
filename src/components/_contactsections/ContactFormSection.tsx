@@ -106,7 +106,7 @@ const ContactFormSection = () => {
       <div className="max-w-full md:max-w-[70%] mx-auto flex flex-col md:flex-row items-start gap-8 md:gap-12">
         
         {/* Sol tərəf: Mətn və Sosyal Media */}
-        <div className="w-full flex flex-col justify-center items-center md:items-start md:w-[49%] pt-8 md:pt-16 lg:pt-40">
+        <div className="w-full flex flex-col justify-center items-center md:items-start  md:w-[40%] pt-8 md:pt-16 lg:pt-40">
           <span className="text-[#635BFF] font-[600] text-[15px] block mb-2">
             {t.subtitle}
           </span>

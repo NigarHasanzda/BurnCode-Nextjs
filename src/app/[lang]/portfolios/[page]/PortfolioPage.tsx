@@ -1,137 +1,143 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import api from "@/lib/api";
-import { Project } from "@/types/portfolio";
+import Image from "next/image";
+import { Category, Project } from "@/types/portfolio";
 import Pagination from "@/Pagination/Paginations";
+import { getPortfolioWithCategories, getPortfolioCategories } from "@/services/PortfolioService";
+import SingleSkeleton from "@/components/LoadingSkeleton/SingleLoading";
+import CategoriesSkeleton from "@/components/LoadingSkeleton/CategoriesSkelet";
+
+
 
 export default function PortfolioPage() {
   const params = useParams();
   const router = useRouter();
 
-  const lang = params?.lang as string;
-  const categorySlug = params?.slug as string | undefined; // undefined if no category
-  const currentPage = Number(params?.page) || 1;
+  const lang = params.lang as string;
+  const categorySlug = params.slug as string | undefined;
+  const currentPage = Number(params.page) || 1;
 
   const [projects, setProjects] = useState<Project[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
 
-  // 1️⃣ Kateqoriyaları gətir
+  // 1. Kateqoriyaların Yüklənməsi
   useEffect(() => {
+    if (!lang) return;
+
     const fetchCategories = async () => {
       try {
-        const res = await api.get(`/projects/categories`, {
-          headers: { "Accept-Language": lang },
-        });
-        setCategories(res.data.data);
+        setCategoriesLoading(true);
+        const data = await getPortfolioCategories(lang);
+        const mappedCats: Category[] = data.map((item: any) =>
+          typeof item === "string"
+            ? { id: 0, name: item, slug: item.toLowerCase().replace(/\s+/g, "-") }
+            : { id: item.id, name: item.name, slug: item.slug }
+        );
+        setCategories(mappedCats);
       } catch (err) {
-        console.error("Kateqoriya xətası:", err);
+        console.error("Category fetch error:", err);
+      } finally {
+        setCategoriesLoading(false);
       }
     };
 
-    if (lang) fetchCategories();
+    fetchCategories();
   }, [lang]);
 
-  // 2️⃣ Portfolioları gətir
+  const categoryId = useMemo(() => {
+    if (!categorySlug || categories.length === 0) return undefined;
+    return categories.find((cat) => cat.slug === categorySlug)?.id;
+  }, [categorySlug, categories]);
+
+  // 3. Layihələrin Yüklənməsi
   useEffect(() => {
+    let isMounted = true;
+
     const fetchProjects = async () => {
+      // Əgər spesifik kateqoriya seçilibsə amma hələ ID tapılmayıbsa, gözlə
+      if (categorySlug && !categoryId && !categoriesLoading) return;
+
       setLoading(true);
       try {
-        let url = "";
-        if (categorySlug) {
-          // category slug varsa, category endpoint istifadə et
-          url = `/projects/categories/${categorySlug}?page=${currentPage}&lang=${lang}`;
-        } else {
-          url = `/projects?page=${currentPage}&lang=${lang}`;
+        const res = await getPortfolioWithCategories(currentPage, lang, categoryId);
+        
+        if (isMounted) {
+          const formattedItems = res.data.map((item: any) => ({
+            id: item.id,
+            title: item.name || item.title,
+            image: item.image,
+            description: item.description,
+            slug: item.slug,
+          }));
+
+          setProjects(formattedItems);
+          setTotalPages(res.meta?.last_page || 1);
         }
-
-        const res = await api.get(url);
-        const items = res.data.data.map((item: any) => ({
-          id: item.id,
-          title: item.name || item.title,
-          image: item.image,
-          description: item.description,
-          slug: item.slug,
-        }));
-
-        setProjects(items);
-        setTotalPages(res.data.meta?.last_page || 1);
       } catch (err) {
-        console.error("Layihə yükləmə xətası:", err);
+        console.error("Projects fetch error:", err);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     fetchProjects();
-  }, [categorySlug, currentPage, lang]);
 
-  // 3️⃣ Category filter click
-  const handleFilterClick = (slug: string | "*") => {
-    if (slug === "*") {
-      router.push(`/${lang}/portfolios/1`);
-    } else {
-      router.push(`/${lang}/portfolios/category/${slug}/1`);
-    }
-  };
+    return () => { isMounted = false; };
+  }, [currentPage, lang, categoryId, categorySlug, categoriesLoading]);
 
-  // 4️⃣ Pagination click
-  const handlePageChange = (page: number) => {
-    if (categorySlug) {
-      router.push(`/${lang}/portfolios/category/${categorySlug}/${page}`);
-    } else {
-      router.push(`/${lang}/portfolios/${page}`);
-    }
+
+  const navigate = (slug: string | "*", page: number = 1) => {
+    const path = slug === "*" 
+      ? `/${lang}/portfolios/${page}` 
+      : `/${lang}/portfolios/category/${slug}/${page}`;
+    router.push(path);
   };
 
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4 lg:px-10">
+        
+        {/* KATEQORİYA NAVİQASİYASI */}
+        {categoriesLoading ? (
+          <CategoriesSkeleton />
+        ) : (
+          <nav className="mb-[50px]">
+            <ul className="flex flex-wrap items-center justify-center gap-7">
+              <CategoryItem 
+                label="All" 
+                isActive={!categorySlug} 
+                onClick={() => navigate("*")} 
+              />
+              {categories.map((cat) => (
+                <CategoryItem
+                  key={cat.id}
+                  label={cat.name}
+                  isActive={categorySlug === cat.slug}
+                  onClick={() => navigate(cat.slug)}
+                />
+              ))}
+            </ul>
+          </nav>
+        )}
 
-        {/* CATEGORY NAV */}
-        <div className="mb-[50px]">
-          <ul className="flex flex-wrap items-center justify-center gap-3">
-            <li
-              onClick={() => handleFilterClick("*")}
-              className={`cursor-pointer px-6 py-3 rounded-full font-bold text-[16px] transition-all
-                ${!categorySlug ? "bg-[#5D56F1] text-white" : "bg-[#F4F7FA] text-[#1A1C20] hover:bg-[#5D56F1] hover:text-white"}`}
-            >
-              All
-            </li>
-            {categories.map((cat) => (
-              <li
-                key={cat.id}
-                onClick={() => handleFilterClick(cat.slug)}
-                className={`cursor-pointer px-6 py-3 rounded-full font-bold text-[16px] transition-all
-                  ${categorySlug === cat.slug ? "bg-[#5D56F1] text-white" : "bg-[#F4F7FA] text-[#1A1C20] hover:bg-[#5D56F1] hover:text-white"}`}
-              >
-                {cat.name}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* GRID SECTION */}
+        {/* LAYİHƏLƏR SİYAHISI */}
         {loading ? (
-          <div className="text-center py-20">Yüklənir...</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <SingleSkeleton />
+            <SingleSkeleton />
+          </div>
+        ) : projects.length === 0 ? (
+          <div className="text-center py-20 text-gray-400 text-lg">Məlumat tapılmadı</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {projects.map((work) => (
-              <div key={work.id} className="bg-[#F8F9FD] rounded-[48px] p-8 flex flex-col group h-full">
-                <div className="relative aspect-[1.5/1] rounded-[32px] overflow-hidden mb-8 shadow-sm">
-                  <img src={work.image} alt={work.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                </div>
-                <div className="px-4 pb-4">
-                  <Link href={`/${lang}/portfolios/detail/${work.slug}`}>
-                    <h3 className="text-[28px] font-bold text-[#1A1C20] mb-4 group-hover:text-[#5D56F1] transition-colors">{work.title}</h3>
-                  </Link>
-                  <p className="text-[#52525B] text-[17px] leading-relaxed line-clamp-3">{work.description}</p>
-                </div>
-              </div>
+              <ProjectCard key={work.id} work={work} lang={lang} />
             ))}
           </div>
         )}
@@ -142,11 +148,48 @@ export default function PortfolioPage() {
             <Pagination
               currentPage={currentPage}
               lastPage={totalPages}
-              onPageChange={handlePageChange}
+              onPageChange={(page) => navigate(categorySlug || "*", page)}
             />
           </div>
         )}
       </div>
     </section>
+  );
+}
+
+// Köməkçi Komponentlər (Clean Code üçün)
+function CategoryItem({ label, isActive, onClick }: { label: string, isActive: boolean, onClick: () => void }) {
+  return (
+    <li
+      onClick={onClick}
+      className={`cursor-pointer px-6 py-3 rounded-full font-bold text-[16px] transition-all duration-300
+        ${isActive ? "bg-[#5D56F1] text-white shadow-lg shadow-indigo-200" : "bg-[#F4F7FA] text-[#1A1C20] hover:bg-[#5D56F1] hover:text-white"}`}
+    >
+      {label}
+    </li>
+  );
+}
+
+function ProjectCard({ work, lang }: { work: Project, lang: string }) {
+  return (
+    <article className="bg-[#F8F9FD] rounded-[48px] p-8 flex flex-col group h-full transition-all duration-300 ">
+      <div className="relative aspect-[1.5/1] rounded-[32px] overflow-hidden mb-8 shadow-sm">
+        <img
+          src={work.image}
+          alt={work.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      </div>
+      <div className="px-4 pb-4">
+        <Link href={`/${lang}/singleportfolio/${work.slug}`}>
+          <h3 className="text-[28px] font-bold text-[#1A1C20] mb-4 group-hover:text-[#5D56F1] transition-colors leading-tight">
+            {work.title}
+          </h3>
+        </Link>
+        <p className="text-[#52525B] text-[17px] leading-relaxed line-clamp-3">
+          {work.description}
+        </p>
+      </div>
+    </article>
   );
 }

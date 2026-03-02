@@ -4,8 +4,7 @@ export interface BlogPost {
   slug: string;
   image: string;
   created_at: string;
-
-  body: string; // ✅ content yox, body gəlir
+  body: string; 
   description?: string;
   meta_description?: string;
   meta_keywords?: string;

@@ -18,16 +18,14 @@ const Page = () => {
     const [service, setService] = useState<Service | null>(null);
     const [loading, setLoading] = useState(true);
 
-const features = [
-                "WordPress Support & Maintenance",
-                "1,000+ Completed Projects",
-                "Content Migration",
-                "Plugin Installation and Customization",
-                "Fast Load Time",
-                "Easy Back-End Admin Panel"
-            ]
-
-
+    const features = [
+        "WordPress Support & Maintenance",
+        "1,000+ Completed Projects",
+        "Content Migration",
+        "Plugin Installation and Customization",
+        "Fast Load Time",
+        "Easy Back-End Admin Panel"
+    ]
 
     useEffect(() => {
         const loadService = async () => {
@@ -48,7 +46,7 @@ const features = [
     }, [slug, lang]);
 
     if (loading) {
-        return <SingleSkeleton/>;
+        return <SingleSkeleton />;
     }
 
     if (!service) {
@@ -109,7 +107,7 @@ const features = [
                                     </ul>
                                 )}
 
-                                <PrimaryButton text="Contact now" path={`/${lang}/contact`} />
+                                <PrimaryButton text="Contact now" path={`/contact`} />
                             </div>
                         </aside>
                     </div>

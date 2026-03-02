@@ -25,7 +25,7 @@ export default function BlogCard({
     <div
       onClick={() => {
         router.push(`/${lang}/blogs/${slug}`);
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
       }}
       className="group cursor-pointer bg-[#F7F9FB] rounded-[48px]  p-[14px]  pt-3 h-fit flex flex-col transition-all duration-300 "
     >
