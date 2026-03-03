@@ -13,6 +13,7 @@ import Link from 'next/link';
 import SingleSkeleton from '@/components/LoadingSkeleton/SingleLoading';
 import FadeInLeftWhenVisible from '@/FadeInWhenVisible/FadeInLeftWhenVisible';
 import FadeInRightWhenVisible from '@/FadeInWhenVisible/FadeInWhenVisible';
+import PortfolioCard from '@/components/Card/PortfolioCard';
 
 // Skeleton
 
@@ -83,7 +84,7 @@ const OurWork = () => {
           <div className="flex flex-wrap -mx-4">
             {projects.map((work) => (
               <div key={work.id} className="w-full md:w-1/2 px-4 mb-6">
-                <div className="group bg-[#F7F8FD] rounded-[40px] p-5 pb-10 h-full transition-all duration-300 flex flex-col">
+                {/* <div className="group bg-[#F7F8FD] rounded-[40px] p-5 pb-10 h-full transition-all duration-300 flex flex-col">
                   
                   <div className="mb-[30px] rounded-[30px] overflow-hidden">
                     <div className="relative h-[250px] md:h-[350px] w-full overflow-hidden">
@@ -96,7 +97,7 @@ const OurWork = () => {
                   </div>
 
                   <div className="px-5 flex-1">
-                    <Link href={`/${lang}/portfolio/${work.slug}`} className="block mb-4">
+                    <Link href={`/${lang}/singleportfolio/${work.slug}`} className="block mb-4">
                       <h3 className="text-[18px] md:text-[22px] font-semibold text-[#1e1e2f] transition-colors duration-300 group-hover:text-[#5e5ce6]">
                         {work.title}
                       </h3>
@@ -106,7 +107,15 @@ const OurWork = () => {
                     </p>
                   </div>
 
-                </div>
+                </div> */}
+                 <PortfolioCard
+            id={work.id}
+            title={work.title}
+            description={work.description}
+            image={work.image}
+            slug={work.slug}
+            lang={lang}
+          />
               </div>
             ))}
           </div>
