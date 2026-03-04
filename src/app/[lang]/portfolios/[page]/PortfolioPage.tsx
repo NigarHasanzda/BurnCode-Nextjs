@@ -193,7 +193,7 @@ function CategoryItem({
       className={`cursor-pointer px-6 py-3 rounded-full font-bold text-[16px] transition-all duration-300
         ${
           isActive
-            ? "bg-[#5D56F1] text-white shadow-lg shadow-indigo-200"
+            ? "bg-[#5D56F1] text-white "
             : "bg-[#F4F7FA] text-[#1A1C20] hover:bg-[#5D56F1] hover:text-white"
         }`}
     >

@@ -16,7 +16,7 @@ const CategorySkeletonItem = () => {
 const CategoriesSkeleton = () => {
   return (
     // Sizin əsas kodunuzdakı 'mb-[50px]' və 'flex flex-wrap items-center justify-center gap-3' stilləri
-    <div className="mb-[50px]">
+    <div className="mb-[50px] mt-[20px]">
       <div className="flex flex-wrap items-center justify-center gap-3">
         {/* İstədiyiniz 4 ədəd yan-yana skeleton */}
         <CategorySkeletonItem />
