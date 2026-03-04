@@ -51,43 +51,53 @@ const ServicesSection = () => {
   }, [lang]);
 
   return (
-    <section className="bg-[#F7F8FD] py-[60px] md:py-[70px] px-4 md:px-75 pb-[40px] md:pb-[70px]">
+    <section className="bg-[#F7F8FD] 
+                        py-14 sm:py-16 md:py-20 
+                        px-4 sm:px-6 lg:px-12 xl:px-20">
+
       <div className="mx-auto w-full max-w-[1400px]">
 
         {/* Header */}
-        <div className="flex flex-wrap items-center mb-12">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-12">
 
-          <div className="w-full md:w-7/12 mb-6 md:mb-0 text-center md:text-left">
+          <div className="w-full md:w-7/12 text-center md:text-left">
             <FadeInLeftWhenVisible>
-              <span className="block text-[#5e5ce6] font-semibold mb-2 uppercase tracking-wide text-sm md:text-base">
+              <span className="block text-[#5e5ce6] font-semibold mb-2 uppercase tracking-wide 
+                               text-xs sm:text-sm md:text-base">
                 {t.ourServices}
               </span>
-              <h2 className="text-[28px] md:text-[42px] font-bold text-[#1e1e2f] leading-tight">
+
+              <h2 className="font-bold text-[#1e1e2f] leading-tight 
+                             text-[26px] sm:text-[32px] md:text-[42px]">
                 {t.whatWeOffer}
               </h2>
             </FadeInLeftWhenVisible>
           </div>
 
-          <div className="w-full md:w-5/12 flex justify-center md:justify-end">
+          <div className="w-full md:w-auto flex justify-center md:justify-end">
             <FadeInRightWhenVisible>
-              <PrimaryButton
-                text={t.viewAllServices}
-                path="/services"
-              />
+              <div className="w-full sm:w-auto">
+                <PrimaryButton
+                  text={t.viewAllServices}
+                  path="/services"
+                />
+              </div>
             </FadeInRightWhenVisible>
           </div>
 
         </div>
 
         {/* Cards */}
-        <div className="flex flex-wrap -mx-4">
+        <div className="flex flex-wrap -mx-3 sm:-mx-4">
           {loading ? (
             <CardSkeleton />
           ) : (
             posts.slice(0, 6).map((service) => (
               <div
                 key={service.slug}
-                className="w-full sm:w-1/2 lg:w-1/3 px-4 mb-8"
+                className="w-full sm:w-1/2 lg:w-1/3 
+                           px-3 sm:px-4 
+                           mb-6 sm:mb-8"
               >
                 <FadeInFromBottom>
                   <ServiceCard

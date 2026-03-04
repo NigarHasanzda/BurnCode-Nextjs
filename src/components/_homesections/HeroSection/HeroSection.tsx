@@ -26,7 +26,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 bg-center bg-no-repeat bg-contain opacity-70 pointer-events-none" style={{ backgroundImage: "url('/hero-bg.png')" }} />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center">
-        <span className="text-[#5D5FEF] font-bold tracking-widest text-[12px] md:text-[16px] uppercase -mb-2 block">
+        <span className="text-[#5D5FEF] font-bold tracking-widest text-[12px] md:text-[16px]  uppercase md:mb-[-13px] mb-1.5 block">
           <WavyText text={t.subtitle} />
         </span>
 

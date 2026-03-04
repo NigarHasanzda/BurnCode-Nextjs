@@ -1,25 +1,24 @@
 {
   "hero": {
-    "subtitle": "Şirkətimizi Haqqında",
-    "titleLine1": "Biznesinizi virtual",
-    "titleLine2": "dünyaya gətirin",
+    "subtitle": "Şirkətimiz haqqında",
+    "titleLine1": "Biznesinizi virtual ",
+    "titleLine2": "dünyaya daşıyın",
     "titleHighlight": "Burncode ilə",
-    "description": "Burncode 5 ildən çoxdur ki, müştərilərinə xidmət göstərir. Bu müddət ərzində bir çox kiçik və böyük layihələr uğurla həyata keçirilmişdir. Biz sizə həm keyfiyyətli iş, həm də münasib qiymətlər təqdim edirik.",
-    "button1": "Bizimlə Əlaqə ",
-    "button2": "layihələr"
-  }
-,
- 
+    "description": "Burncode şirkəti artıq 5 ildən çoxdur ki, müştərilərinə xidmət göstərir. Bu müddət ərzində bir sıra kiçik və böyük layihələr həyata keçirmişik. Sizə həm keyfiyyətli iş, həm də münasib qiymət təklif edirik.",
+    "button1": "Bizimlə əlaqə",
+    "button2": "Layihələr"
+  },
+
   "chooseUs": {
     "title": "🚀 Niyə proqram təminatının hazırlanmasında bizi seçməlisiniz?",
-    "description1": "<span class=\"font-semibold text-[#1a1a2e]\">Burncode</span>-da biz sadəcə proqram təminatı hazırlamırıq — biz nəticə verən güclü rəqəmsal həllər yaradırıq. MVP hazırlamaq istəyən startaplardan tutmuş, köhnə sistemlərini müasirləşdirən böyük müəssisələrə qədər biz sizin etibarlı innovasiya tərəfdaşınızıq.",
-    "description2": "Biz funksional, miqyaslana bilən və istifadəçi dostu həllər təqdim etmək üçün qabaqcıl texnologiyaları, yüksək təhlükəsizlik standartlarını və istifadəçi davranışını dərindən başa düşməyi birləşdiririk. İdeyadan icraya qədər biz sizin vizyonunuzu bazara hazır məhsula çevirmək üçün strategiya, istedad və ehtirasımızı bir araya gətiririk. 🚀 Gəlin gələcəyi birlikdə quraq — hər dəfə bir sətir kodla.",
-    "button": "Bizimlə Əlaqə",
+    "description1": "<span class=\"font-semibold text-[#1a1a2e]\">Burncode</span> olaraq biz sadəcə proqram təminatı yaratmırıq — nəticə gətirən güclü rəqəmsal həllər qururuq. Minimum Viable Product (MVP) hazırlamaq istəyən startaplardan tutmuş köhnə sistemlərini modernləşdirmək istəyən iri şirkətlərədək hər kəs üçün innovasiya tərəfdaşıyıq.",
+    "description2": "Ən müasir texnologiyaları, yüksək təhlükəsizlik standartlarını və istifadəçi davranışını dərindən anlayaraq funksional, miqyaslana bilən və rahat istifadə olunan həllər təqdim edirik. Fikirdən icraya qədər layihənizi bazara hazır məhsula çevirmək üçün strategiyanı, istedadı və həvəsi bir araya gətiririk. 🚀 Gələcəyi birlikdə quraq — hər dəfə bir parlaq kod sətri ilə.",
+    "button": "Bizimlə əlaqə",
     "features": {
-      "scalability": "Asan miqyaslanma",
+      "scalability": "Asan miqyaslana bilmə",
       "impact": "Dərhal təsir",
       "expertise": "Bilik və təcrübə",
-      "timezone": "Vaxt zonası uyğunluğu",
+      "timezone": "Vaxt zonasına uyğunluq",
       "flexibility": "Tam çeviklik",
       "support": "Proaktiv dəstək"
     }
@@ -27,69 +26,84 @@
 
   "servicesSection": {
     "ourServices": "Xidmətlərimiz",
-    "whatWeOffer": "Bu gün sizə nələr təklif edə bilərik",
-    "viewAllServices": "Bütün Xidmətlərə Bax",
+    "whatWeOffer": "Sizə bu gün nə təklif edə bilərik",
+    "viewAllServices": "Bütün xidmətlər",
     "loading": "Yüklənir..."
   },
+
   "ourWork": {
-    "subtitle": "Layihələrimiz ",
-    "title": "Hazırladığımız layihələrlə tanış olun",
+    "subtitle": "Layihələr",
+    "title": "Hazırladığımız layihələr ilə tanış olun",
     "allPortfolio": "Bütün layihələr",
-    "mockDescription": "Biznesiniz üçün nəticəyönümlü və innovativ rəqəmsal həllərin hazırlanması prosesi."
+    "mockDescription": "Biznesiniz üçün innovativ və nəticəyönümlü rəqəmsal həllər hazırlayırıq."
   },
-  
+
   "header": {
     "nav": {
-      "home": "Ana Səhifə",
+      "home": "Ana səhifə",
       "services": "Xidmətlər",
-      "portfolio": "Portfolio",
+      "portfolio": "Layihələr",
       "blog": "Bloq",
       "contact": "Əlaqə"
     },
-    "dashboard": "İdarə Panel"
+    "dashboard": "İdarə paneli"
   },
-  "footer": {
-  "description": "Burncode şirkəti 5 ildən artıqdır ki, müştərilərinə xidmət göstərir. Bu müddət ərzində bir çox kiçik və böyük layihələr həyata keçirmişik. Sizə keyfiyyətli iş və münasib qiymət təklif edirik.",
-  "pagesTitle": "Səhifələr",
-  "socialsTitle": "Sosial şəbəkələr",
-  "links": {
-    "home": "Ana səhifə",
-    "services": "Xidmətlər",
-    "portfolio": "Portfolio",
-    "blog": "Bloq",
-    "contact": "Əlaqə"
-  },
-  "copyright": "Müəllif hüquqları © 2026 BurnCode. Bütün hüquqlar qorunur.",
-  "privacy": "Məxfilik siyasəti",
-  "terms": "Xidmət şərtləri",
-  "goToTop": "Yuxarı qalx"
-},
 
-  "whyBurncode": "Niyə Burncode",
-  "discoverTrust": "Təcrübəmizə etibar etməyiniz üçün səbəbləri kəşf edin",
-  "readyExplore": "Rəqəmsal kainatımızı kəşf etməyə hazırsınız?",
-  "transformIdeas": "BurnCode-da ideyaları yüksək keyfiyyətli rəqəmsal həllərə çeviririk. Konsepsiyadan icraya qədər komandamız layihənizin fərqlənməsini, istifadəçiləri cəlb etməsini və real nəticələr əldə etməsini təmin edir.",
-  "connectLinkedIn": "LinkedIn",
-  "connectInstagram": "Instagram",
+  "footer": {
+    "description": "Burncode şirkəti artıq 5 ildən çoxdur ki, müştərilərinə xidmət göstərir. Bu müddət ərzində bir sıra kiçik və böyük layihələr həyata keçirmişik. Sizə həm keyfiyyətli iş, həm də münasib qiymət təklif edirik.",
+    "pagesTitle": "Səhifələr",
+    "socialsTitle": "Sosial şəbəkələr",
+    "links": {
+      "home": "Ana səhifə",
+      "services": "Xidmətlər",
+      "portfolio": "Layihələr",
+      "blog": "Bloq",
+      "contact": "Əlaqə"
+    },
+    "copyright": "Müəllif hüquqları © 2026 BurnCode. Bütün hüquqlar qorunur.",
+    "privacy": "Məxfilik siyasəti",
+    "terms": "Xidmət şərtləri",
+    "goToTop": "Yuxarı qalx"
+  },
+
+  "whyBurncode": "Niyə BurnCode-u seçməlisiniz?",
+  "discoverTrust": "Aparıcı şirkətlərin niyə innovativ həllər üçün bizə güvəndiyini kəşf edin",
+  "readyExplore": "Möhtəşəm işlərimizi kəşf etməyə hazırsınız?",
+  "transformIdeas": "BurnCode-da ideyaları yüksək keyfiyyətli rəqəmsal həllərə çeviririk. Fikirdən icraya qədər komandamız layihənizin fərqlənməsini, istifadəçilərin cəlb olunmasını və real nəticələr əldə edilməsini təmin edir.",
+  "connectLinkedIn": "LinkedIn-də qoşulun",
+  "connectInstagram": "Instagram-da qoşulun",
+
   "mockItems": [
-    { "title": "Mərkəzdə İnnovasiya", "desc": "Ən son texnologiyaları tətbiq edərək hər zaman bir addım öndə oluruq." },
-    { "title": "Keyfiyyət Yönümlü", "desc": "Ciddi sınaqlarımız yüksək performanslı məhsullar təqdim etməyimizi təmin edir." },
-    { "title": "Maksimum Dəyər", "desc": "İnvestisiyanız üçün mükafat nəticələr əldə etmək üçün prosesləri optimallaşdırırıq." }
+    {
+      "title": "İnnovasiya mərkəzində",
+      "desc": "Ən müasir texnologiyaları və yaradıcı yanaşmanı tətbiq edərək real biznes dəyəri yaradan həllər hazırlayırıq."
+    },
+    {
+      "title": "Keyfiyyət yönümlü",
+      "desc": "Hər layihəmiz ən yüksək standartlara cavab verir, etibarlılıq, performans və müştəri məmnuniyyətini təmin edir."
+    },
+    {
+      "title": "Maksimal dəyər",
+      "desc": "Biz sərmayənizin ölçülə bilən nəticələrə çevrilməsini təmin edərək ən yaxşı həlləri təqdim edirik."
+    }
   ],
+
   "latestBlog": {
-    "subtitle": "SON BLOQLAR VƏ MƏQALƏLƏR",
+    "subtitle": "Ən son blog yazıları",
     "title": "Texnoloji yenilikləri bizimlə kəşf edin",
     "viewAll": "Bütün məqalələrə bax"
   },
+
   "sidebar": {
-    "home": "Ana Səhifə",
+    "home": "Ana səhifə",
     "services": "Xidmətlər",
-    "portfolio": "Portfolio",
+    "portfolio": "Layihələr",
     "blog": "Bloq",
     "contact": "Əlaqə"
   },
+
   "contact": {
-    "subtitle": "Bizimlə Əlaqə",
+    "subtitle": "Bizimlə əlaqə",
     "title": "Bu gün bizimlə əlaqə saxlayın",
     "followUs": "Bizi izləyin:",
     "firstName": "Ad",
@@ -97,10 +111,8 @@
     "phone": "Telefon",
     "email": "E-poçt",
     "message": "Mesajınız",
-    "sendButton": "Mesaj Göndər",
+    "sendButton": "Mesaj göndər",
     "successMsg": "Mesaj göndərildi!",
     "loading": "Yüklənir..."
   }
-
 }
-
