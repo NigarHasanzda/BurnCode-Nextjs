@@ -14,6 +14,7 @@ import { getContactInfo } from "@/services/Contact";
 import az from '../../locales/az.json';
 import en from '../../locales/en.json';
 import ru from '../../locales/ru.json';
+import ContactFormLoading from "../LoadingSkeleton/ContactFormLoading";
 
 const translations = { az, en, ru };
 const messageService = new MessageService();
@@ -92,20 +93,12 @@ const ContactFormSection = () => {
   };
 
   if (loading) {
-    return (
-      <section className="py-12">
-        <div className="max-w-[80%] mx-auto">
-          <p className="text-center text-gray-400 py-20">{t.loading}</p>
-        </div>
-      </section>
-    );
+    return <ContactFormLoading/>
   }
 
   return (
     <section className="pt-19 pb-3 px-4">
       <div className="max-w-full md:max-w-[70%] mx-auto flex flex-col md:flex-row items-start gap-8 md:gap-12">
-        
-        {/* Sol tərəf: Mətn və Sosyal Media */}
         <div className="w-full flex flex-col justify-center items-center md:items-start  md:w-[40%] pt-8 md:pt-16 lg:pt-40">
           <span className="text-[#635BFF] font-[600] text-[15px] block mb-2">
             {t.subtitle}
@@ -134,8 +127,6 @@ const ContactFormSection = () => {
             })}
           </div>
         </div>
-
-        {/* Sağ tərəf: Form */}
         <div className="w-full md:w-[55%] bg-[#F8F9FF] rounded-[45px] p-6 sm:p-8 lg:p-14 border border-white/50 shadow-sm">
           <form onSubmit={submitForm} className="space-y-4">
             {success && (

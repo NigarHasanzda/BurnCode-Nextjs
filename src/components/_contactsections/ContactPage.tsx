@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import SendIcon from '@mui/icons-material/Send';
+import ContactThreeLoading from "../LoadingSkeleton/ContactThreeCard";
 
 interface ContactInfo {
   location: string; 
@@ -33,7 +34,7 @@ export default function ContactCards() {
   }, []);
 
   if (loading) {
-    return <p className="text-center py-20">Yüklənir...</p>;
+    return <ContactThreeLoading/>;
   }
 
   return (
