@@ -4,8 +4,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Category, Project } from "@/types/portfolio";
 import Pagination from "@/Pagination/Paginations";
-import { getPortfolioWithCategories, getPortfolioCategories,}
-from "@/services/PortfolioService";
+import { getPortfolioWithCategories, getPortfolioCategories } from "@/services/PortfolioService";
 import SingleSkeleton from "@/components/LoadingSkeleton/SingleLoading";
 import CategoriesSkeleton from "@/components/LoadingSkeleton/CategoriesSkelet";
 import PortfolioCard from "@/components/Card/PortfolioCard";
@@ -24,12 +23,20 @@ export default function PortfolioPage() {
   const [loading, setLoading] = useState(true);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
 
-
   const categoriesFetched = useRef(false);
 
-
+  // === Categories fetch once ===
   useEffect(() => {
     if (!lang || categoriesFetched.current) return;
+
+    // Check localStorage first
+    const storedCategories = localStorage.getItem(`portfolio-categories-${lang}`);
+    if (storedCategories) {
+      setCategories(JSON.parse(storedCategories));
+      setCategoriesLoading(false);
+      categoriesFetched.current = true;
+      return;
+    }
 
     const fetchCategories = async () => {
       try {
@@ -44,7 +51,9 @@ export default function PortfolioPage() {
         }));
 
         setCategories(mapped);
-        categoriesFetched.current = true; 
+        localStorage.setItem(`portfolio-categories-${lang}`, JSON.stringify(mapped));
+
+        categoriesFetched.current = true;
       } catch (err) {
         console.error("Category fetch error:", err);
       } finally {
@@ -55,12 +64,12 @@ export default function PortfolioPage() {
     fetchCategories();
   }, [lang]);
 
-
   const categoryId = useMemo(() => {
     if (!categorySlug || categories.length === 0) return undefined;
     return categories.find((cat) => cat.slug === categorySlug)?.id;
   }, [categorySlug, categories]);
 
+  // === Projects fetch on page or category change ===
   useEffect(() => {
     let isMounted = true;
 
@@ -102,7 +111,6 @@ export default function PortfolioPage() {
     };
   }, [currentPage, lang, categoryId, categoriesLoading]);
 
-
   const navigate = (slug: string | "*", page: number = 1) => {
     const path =
       slug === "*"
@@ -111,6 +119,7 @@ export default function PortfolioPage() {
 
     router.push(path);
   };
+
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4 lg:px-30">
@@ -124,7 +133,6 @@ export default function PortfolioPage() {
                 isActive={!categorySlug}
                 onClick={() => navigate("*")}
               />
-
               {categories.map((cat) => (
                 <CategoryItem
                   key={cat.id}
@@ -177,7 +185,6 @@ export default function PortfolioPage() {
   );
 }
 
-
 function CategoryItem({
   label,
   isActive,
@@ -193,7 +200,7 @@ function CategoryItem({
       className={`cursor-pointer px-6 py-3 rounded-full font-bold text-[16px] transition-all duration-300
         ${
           isActive
-            ? "bg-[#5D56F1] text-white "
+            ? "bg-[#5D56F1] text-white"
             : "bg-[#F4F7FA] text-[#1A1C20] hover:bg-[#5D56F1] hover:text-white"
         }`}
     >

@@ -78,7 +78,7 @@ const Page = () => {
                     {/* Sidebar */}
                     <div className="w-full lg:w-[33%] px-2">
                         <aside>
-                            <div className="bg-[#F7F8FD] rounded-[48px] p-6 md:p-11">
+                            <div className="bg-[#F7F8FD] rounded-[48px] p-6 md:p-12">
 
                                 <div className="mb-6 w-18 h-18">
                                     <img
@@ -88,7 +88,7 @@ const Page = () => {
                                     />
                                 </div>
 
-                                <h3 className="text-[23px] md:text-[26px] font-[500] text-[#111827] mb-8 leading-tight">
+                                <h3 className="text-[23px] md:text-[26.6px] font-[500] text-[#111827] mb-8 leading-tight">
                                     {service.name}
                                 </h3>
 
