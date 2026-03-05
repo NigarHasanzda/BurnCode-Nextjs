@@ -37,7 +37,7 @@ export default function ContactCards() {
   }
 
   return (
-    <section className="pt-12 pb-12 px-4 md:px-6">
+    <section className="pt-6 md:pt-22 pb-12 md:pb-22 px-4 md:px-6">
       <div className="max-w-full md:max-w-[70%] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
 
         {/* Address */}

@@ -21,17 +21,17 @@ export default function Hero() {
 
   return (
     <section
-      className="relative min-h-[80vh] bg-[#F7F8FD] w-full flex flex-col items-center justify-center py-20 px-4 overflow-hidden -mt-20 sm:mt-2 md:mt-0"
+      className="relative min-h-[80vh] bg-[#F7F8FD] w-full flex flex-col items-center justify-center pb-20 pt-15 px-4 overflow-hidden -mt-20 sm:mt-2 md:mt-0"
     >
       <div className="absolute inset-0 z-0 bg-center bg-no-repeat bg-contain opacity-70 pointer-events-none" style={{ backgroundImage: "url('/hero-bg.png')" }} />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center">
-        <span className="text-[#5D5FEF] font-bold tracking-widest text-[12px] md:text-[16px]  uppercase md:mb-[-13px] mb-1.5 block">
+        <span className="text-[#5D5FEF] font-bold tracking-widest text-[12px] md:text-[16px]  uppercase md:mb-[5px] mb-1.5 block">
           <WavyText text={t.subtitle} />
         </span>
 
         <FadeInRightWhenVisible>
-          <h1 className="text-[32px] md:text-[90px] font-[650] text-[#1A1A1A] leading-[1.3] mb-2 tracking-tight">
+          <h1 className="text-[32px] md:text-[90px] font-[650] text-[#1A1A1A] leading-[1.2] mb-2 tracking-tight">
             {t.titleLine1} <br />
             {t.titleLine2} <br />
             <span className="text-[#5D5FEF]">{t.titleHighlight}</span>
@@ -39,7 +39,7 @@ export default function Hero() {
         </FadeInRightWhenVisible>
 
         <FadeInFromBottom>
-          <p className="max-w-2xl mx-auto text-gray-400 text-[14px] md:text-lg font-normal leading-relaxed mb-6 px-4">
+          <p className="max-w-2xl mx-auto text-gray-400 text-[13.5px] md:text-lg font-normal -leading-[1.6] mb-6 px-4">
             {t.description}
           </p>
         </FadeInFromBottom>

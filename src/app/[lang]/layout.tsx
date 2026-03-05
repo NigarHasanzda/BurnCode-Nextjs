@@ -23,9 +23,7 @@ export default function LangLayout({ children, params }: LayoutProps) {
     notFound(); // <-- burda avtomatik 404 göstərir
   }
 
-  const selectedLang = lang; // artıq supported olduğunu bilirik
-
-  // ✅ LocalStorage-a yaz
+  const selectedLang = lang; 
   useEffect(() => {
     const savedLang = localStorage.getItem("lang");
     if (savedLang !== selectedLang) {
