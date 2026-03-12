@@ -17,11 +17,11 @@ export default function Hero() {
     ru: require('../../../locales/ru.json'),
   };
 
-  const t = locales[lang]?.hero || locales["az"].hero; // fallback az
+  const t = locales[lang]?.hero || locales["az"].hero; 
 
   return (
     <section
-      className="relative min-h-[80vh] bg-[#F7F8FD] w-full flex flex-col items-center justify-center pb-20 pt-15 px-4 overflow-hidden -mt-20 sm:mt-2 md:mt-0"
+      className="relative min-h-[80vh] bg-[#F7F8FD] w-full flex flex-col items-center justify-center pb-20 pt-21 px-4 overflow-hidden -mt-20 sm:mt-2 md:mt-0"
     >
       <div className="absolute inset-0 z-0 bg-center bg-no-repeat bg-contain opacity-70 pointer-events-none" style={{ backgroundImage: "url('/hero-bg.png')" }} />
 

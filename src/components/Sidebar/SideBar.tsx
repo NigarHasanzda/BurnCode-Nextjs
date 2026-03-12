@@ -2,11 +2,6 @@
 import React from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import HomeIcon from "@mui/icons-material/Home";
-import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import DescriptionIcon from "@mui/icons-material/Description";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LanguageSelector from "../LanguageButton/SeelectLanguage";
 
 interface SidebarProps {
@@ -17,69 +12,59 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, links, onClose, currentLang }) => {
-  
-  // İkonu seçmək üçün funksiya yaradırıq
-  const getIcon = (path: string, name: string) => {
-    const p = path.toLowerCase();
-    const n = name.toLowerCase();
-    const iconStyle = { fontSize: 23, color: "#5D56F1" };
-
-    // Əgər path və ya name daxilində bu sözlər keçirsə ikonu qaytar
-    if (p === "/" || p === `/${currentLang}` || n.includes("ana") || n.includes("home")) 
-      return <HomeIcon sx={iconStyle} />;
-    
-    if (p.includes("service") || n.includes("xidmət") || n.includes("service")) 
-      return <MiscellaneousServicesIcon sx={iconStyle} />;
-    
-    if (p.includes("portfolios") || n.includes("portfolios") || n.includes("layihə")) 
-      return <ShoppingCartIcon sx={iconStyle} />;
-    
-    if (p.includes("blog") || n.includes("blog") || n.includes("məqalə")) 
-      return <DescriptionIcon sx={iconStyle} />;
-    
-    if (p.includes("contact") || n.includes("əlaqə") || n.includes("contact")) 
-      return <ContactMailIcon sx={{ ...iconStyle, fontSize: 22 }} />;
-
-    // Heç biri tapılmasa standart bir ikon göstər (opsional)
-    return <HomeIcon sx={iconStyle} />;
-  };
-
   return (
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Overlay */}
           <motion.div
-            className="fixed inset-0 bg-black/20  z-40 cursor-pointer"
+            className="fixed inset-0 bg-black/25 backdrop-blur-sm z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
+
+          {/* Sidebar */}
           <motion.div
-            className="fixed top-0 right-0 w-[250px] h-full bg-white shadow-xl z-50 px-7 flex flex-col"
+            className="fixed top-0 right-0 w-[270px] h-screen bg-white z-50 flex flex-col shadow-2xl"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            transition={{ type: "spring", damping: 24, stiffness: 170 }}
           >
-            <nav className="flex flex-col gap-6 mt-10">
-              {links.map((link, index) => (
-                <Link
-                  key={index}
-                  href={`/${currentLang}${link.path}`}
-                  className="flex items-center gap-3 text-[15px] font-semibold text-[#646464] hover:text-[#635BFF] transition-all duration-300 transform hover:translate-x-2"
-                  onClick={onClose}
-                >
-                  <span className="flex items-center justify-center w-6 h-6">
-                    {getIcon(link.path, link.name)}
-                  </span>
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
+            {/* Top accent */}
+            <div className="h-[3px] w-full bg-[#5D56F1]" />
 
-            <div className="mx-auto mt-10 -ml-2">
-              <LanguageSelector currentLang={currentLang} />
+            <div className="flex flex-col h-full px-8 py-10">
+
+              {/* Navigation */}
+              <nav className="flex flex-col gap-6 flex-1">
+                {links.map((link, index) => (
+                  <Link
+                    key={index}
+                    href={`/${currentLang}${link.path}`}
+                    onClick={onClose}
+                    className="relative text-[16px]  mx-auto font-semibold text-[#444] tracking-wide"
+                  >
+                    {link.name}
+
+                    {/* permanent gradient underline */}
+                    <span
+                      className="absolute left-0 -bottom-1 h-[2px] w-full"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, rgba(93,86,241,0) 0%, rgba(93,86,241,0.9) 50%, rgba(93,86,241,0) 100%)",
+                        boxShadow: "0 0 8px rgba(93,86,241,0.25)"
+                      }}
+                    />
+                  </Link>
+                ))}
+                <div className="!mx-auto  -ml-[1px]">
+
+                  <LanguageSelector currentLang={currentLang} />
+                </div>
+              </nav>
             </div>
           </motion.div>
         </>
